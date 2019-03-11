@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="context1">
+        <jdbcConnection connectionURL="jdbc:mysql://172.26.108.190:3306/njuTeacher?nullCatalogMeansCurrent=true"
+                        driverClass="com.mysql.cj.jdbc.Driver" userId="root"  password="root"/>
+        <javaModelGenerator targetPackage="com.nju171250.njuTeacher.model" targetProject="C:\Users\Junhui Chen\Desktop\hackthon_mat\server\src\main\java">
+         	<property name="constructorBased" value="true"/>
+         </javaModelGenerator>
+        <sqlMapGenerator targetPackage="com.nju171250.njuTeacher.mapper" targetProject="C:\Users\Junhui Chen\Desktop\hackthon_mat\server\src\main\java"  />
+        <javaClientGenerator targetPackage="com.nju171250.njuTeacher.mapper" targetProject="C:\Users\Junhui Chen\Desktop\hackthon_mat\server\src\main\java"
+                             type="XMLMAPPER"/>
+        <table tableName="user"></table>
+        <table tableName="course"></table>
+        <table tableName="teacher"></table>
+        <table tableName="comment"></table>
+    </context>
+</generatorConfiguration>
