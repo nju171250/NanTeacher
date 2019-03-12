@@ -1,0 +1,40 @@
+.Info .basicInfo .left{
+    display: inline-block;
+    margin-left: 15px;
+}
+.Info .basicInfo .right{
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+}
+.Info .basicInfo .left .name{
+    font-size: 40px;
+    color: purple;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}
+.Info .basicInfo .left .collegeName,.Info .basicInfo .left .department{
+    color: grey;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    margin-bottom: 10px;
+}
+.Info .right .score{
+    color: purple;
+    font-size: 45px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+   
+}
+.Info .courses{
+    border-radius:4px;
+     border:1px solid #c8cccf;
+     width: 94%;
+     margin: 3%;
+}
+.Info .courses p{
+    text-align: center
+}
+.Info .courses .title{
+    font-size: 13px;
+}

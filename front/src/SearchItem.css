@@ -1,8 +1,8 @@
-.left{
+.SearchItem .left{
     margin-left: 18px;
     display: inline-block;
 }
-.score{
+.SearchItem .score{
     text-align: center;
     font-size: 30px;
     display: inline-block;
@@ -10,11 +10,11 @@
     right: 25px;
     color: black;
 }
-.name{
+.SearchItem .left .name{
     font-size: 25px;
     color: purple;
 }
-.department{
+.SearchItem .left .department{
     font-size: 14px;
     color: grey;
 }
@@ -22,7 +22,7 @@
     border-bottom-style: dotted;
     border-bottom-color: purple
 }
-.name,.department,.score{
+.SearchItem .left .name,.SearchItem .left .department,.SearchItem .score{
     margin-block-start: 0px;
     margin-block-end: 0px;
 }
