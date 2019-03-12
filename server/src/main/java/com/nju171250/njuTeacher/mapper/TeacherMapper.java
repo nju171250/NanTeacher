@@ -93,4 +93,8 @@ public interface TeacherMapper {
      * @mbggenerated Mon Mar 11 20:03:45 CST 2019
      */
     int updateByPrimaryKey(Teacher record);
+
+    List<Teacher> searchTeacher(String input);
+
+    List<String> searchPreloading(String input);
 }

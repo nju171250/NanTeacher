@@ -93,4 +93,8 @@ public interface CommentMapper {
      * @mbggenerated Mon Mar 11 20:03:45 CST 2019
      */
     int updateByPrimaryKey(Comment record);
+
+    List<Comment> getCommentInfoByCourseId(String courseId);
+
+    List<Comment> getCommentInfoByTeacherId(String teacherId);
 }

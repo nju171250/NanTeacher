@@ -302,4 +302,16 @@
       comment_time = #{commentTime,jdbcType=TIMESTAMP}
     where comment_id = #{commentId,jdbcType=VARCHAR}
   </update>
+  <select id="getCommentInfoByTeacherId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select comment.* from comment
+      join course on course.course_id = comment.course_id
+      join teacher on teacher.teacher_id = course.teacher_id
+    where teacher.teacher_id = ${teacherId}
+  </select>
+  <select id="getCommentInfoByCourseId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select comment.* from comment
+    join course on course.course_id = comment.course_id
+    join teacher on teacher.teacher_id = course.teacher_id
+    where course.course_id = ${courseId}
+  </select>
 </mapper>

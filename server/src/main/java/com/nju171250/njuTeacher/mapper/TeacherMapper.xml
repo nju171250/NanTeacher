@@ -285,4 +285,14 @@
       teacher_score = #{teacherScore,jdbcType=INTEGER}
     where teacher_id = #{teacherId,jdbcType=VARCHAR}
   </update>
+  <select id="searchTeacher" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select teacher.* from teacher
+      inner join course on course.teacher_id = teacher.teacher_id
+        where teacher.teacher_name like %${input}%
+        or teacher.teacher_department like %${input}%
+        or course.course_name like %${input}%
+  </select>
+  <select id="searchPreloading" parameterType="java.lang.String" resultType="java.lang.String">
+    select teacher_name from teacher where teacher_name like ${input}%
+  </select>
 </mapper>
