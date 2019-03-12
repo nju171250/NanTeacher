@@ -292,4 +292,7 @@
         or teacher.teacher_department like %${input}%
         or course.course_name like %${input}%
   </select>
+  <select id="searchPreloading" parameterType="java.lang.String" resultType="java.lang.String">
+    select teacher_name from teacher where teacher_name like ${input}%
+  </select>
 </mapper>

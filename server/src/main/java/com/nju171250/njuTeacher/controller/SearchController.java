@@ -18,4 +18,9 @@ public class SearchController {
         List<Teacher> list = teacherMapper.searchTeacher(input);
         return list;
     }
+
+    @GetMapping(value = "/searchPreloading")
+    public List<String> searchPreloading(String input){
+        return teacherMapper.searchPreloading(input);
+    }
 }

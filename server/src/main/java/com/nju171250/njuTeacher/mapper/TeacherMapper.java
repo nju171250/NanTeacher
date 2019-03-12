@@ -95,4 +95,6 @@ public interface TeacherMapper {
     int updateByPrimaryKey(Teacher record);
 
     List<Teacher> searchTeacher(String input);
+
+    List<String> searchPreloading(String input);
 }
