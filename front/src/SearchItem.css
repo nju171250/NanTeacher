@@ -1,0 +1,28 @@
+.left{
+    margin-left: 18px;
+    display: inline-block;
+}
+.score{
+    text-align: center;
+    font-size: 30px;
+    display: inline-block;
+    position: absolute;
+    right: 25px;
+    color: black;
+}
+.name{
+    font-size: 25px;
+    color: purple;
+}
+.department{
+    font-size: 14px;
+    color: grey;
+}
+.SearchItem{
+    border-bottom-style: dotted;
+    border-bottom-color: purple
+}
+.name,.department,.score{
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+}

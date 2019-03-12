@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 //import './App.css';
+import './SearchItem.css'
 
 
 class SearchItem extends Component {
@@ -9,10 +10,12 @@ class SearchItem extends Component {
   render() {
       
     return (
-      <div className="SearchList">
-         <p>{this.props.name}</p>
-         <p>{this.props.department}</p>
-         <p>{this.props.score}</p>
+      <div className="SearchItem">
+         <div className="left">
+         <p className="name">{this.props.data.name}</p>
+         <p className="department">{this.props.data.department}</p>
+         </div>
+         <p className="score">{this.props.data.score}</p>
       </div>
       
     );

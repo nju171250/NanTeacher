@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 //import './App.css';
 import {withRouter} from "react-router-dom";
+import './SearchBox.css'
 class SearchBox extends Component {
     constructor(props){
         super(props)
@@ -13,7 +14,7 @@ class SearchBox extends Component {
   render() {
       
     return (
-      <input onChange={this.handleChange}></input>
+      <input onChange={this.handleChange} placeholder="" ></input>
       
     );
   }

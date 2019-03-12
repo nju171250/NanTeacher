@@ -5,6 +5,9 @@ class Info extends Component {
     constructor(props){
         super(props)
     }
+    componentDidMount(){
+      this.props.onInfoInit()
+    }
   render() {
       
     return (

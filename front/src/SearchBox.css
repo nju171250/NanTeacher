@@ -1,0 +1,12 @@
+input{
+    -web-kit-appearance:none;
+  -moz-appearance: none;
+  border-radius:4px;
+   border:1px solid #c8cccf;
+   color:#6a6f77;
+   outline:0;
+   width: 94%;
+   height: 30px;
+   margin: 3%;
+   background-color: rgba(226, 223, 223, 0.932);
+}
