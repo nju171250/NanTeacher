@@ -8,8 +8,7 @@ class SearchBox extends Component {
         
     }
     handleChange(e){
-        
-        this.props.history.push("/searchList/"+e.target.value);
+      this.props.onTextChange(e.target.value)
     }
   render() {
       

@@ -5,13 +5,30 @@ import SearchList from './SearchList';
 import Info from './Info'
 import SearchBox from './SearchBox'
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      isEmpty:true,searchContent:""
+    }
+    this.handleTextChange=this.handleTextChange.bind(this)
+  }
+  handleTextChange(value){
+    if(value==""){
+      this.setState({
+        isEmpty:true,searchContent:""
+      })
+    }else{
+      this.setState({
+        isEmpty:false,searchContent:value
+      })
+    }
+  }
   render() {
     return (
       <div>
-        <SearchBox/>
-        
+        <SearchBox onTextChange={this.handleTextChange}/>
+        <SearchList searchContent={this.state.searchContent}/>
         <Switch>
-            
             <Route path="/info/:teacherId" component={Info}/>
         </Switch>
         
