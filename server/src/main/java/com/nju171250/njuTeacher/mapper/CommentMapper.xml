@@ -303,15 +303,29 @@
     where comment_id = #{commentId,jdbcType=VARCHAR}
   </update>
   <select id="getCommentInfoByTeacherId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select comment.* from comment
+    select
+      comment.comment_id,
+      comment.course_id,
+      comment.user_id,
+      comment.comment_content,
+      comment.comment_stars,
+      comment.comment_time
+    from comment
       join course on course.course_id = comment.course_id
       join teacher on teacher.teacher_id = course.teacher_id
-    where teacher.teacher_id = ${teacherId}
+    where teacher.teacher_id = #{teacherId, jdbcType=VARCHAR}
   </select>
   <select id="getCommentInfoByCourseId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select comment.* from comment
+    select
+      comment.comment_id,
+      comment.course_id,
+      comment.user_id,
+      comment.comment_content,
+      comment.comment_stars,
+      comment.comment_time
+    from comment
     join course on course.course_id = comment.course_id
     join teacher on teacher.teacher_id = course.teacher_id
-    where course.course_id = ${courseId}
+    where course.course_id = #{courseId, jdbcType=VARCHAR}
   </select>
 </mapper>

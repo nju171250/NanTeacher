@@ -15,8 +15,8 @@ public class UserController {
     @Autowired
     UserMapper userMapper;
 
-    @GetMapping(value = "/login")
-    public Response login(String openid){
+    @PostMapping(value = "/login")
+    public Response login(@RequestBody String openid,@RequestBody String password){
         // 若count值为1，说明已经注册过
         UserExample userExample = new UserExample();
         UserExample.Criteria criteria = userExample.createCriteria();
@@ -27,17 +27,17 @@ public class UserController {
             return new Response("登录失败");
     }
 
-    @PostMapping(value = "/register")
-    public Response register(@RequestBody String openid){
-        // 首先判断是否存在，若存在则注册，否则注册失败
-        User user = userMapper.selectByPrimaryKey(openid);
-        if(user == null) {
-            user = new User();
-            user.setUserId(openid);
-            userMapper.insertSelective(user);
-            return new Response("注册成功");
-        }
-        else
-            return new Response("注册失败");
-    }
+//    @PostMapping(value = "/register")
+//    public Response register(@RequestBody String openid){
+//        // 首先判断是否存在，若存在则注册，否则注册失败
+//        User user = userMapper.selectByPrimaryKey(openid);
+//        if(user == null) {
+//            user = new User();
+//            user.setUserId(openid);
+//            userMapper.insertSelective(user);
+//            return new Response("注册成功");
+//        }
+//        else
+//            return new Response("注册失败");
+//    }
 }
