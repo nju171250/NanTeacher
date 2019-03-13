@@ -4,6 +4,8 @@ import {Route,Switch,Link} from 'react-router-dom'
 import SearchList from './SearchList';
 import Info from './Info'
 import SearchBox from './SearchBox'
+import MarkScore from './MarkScore'
+import "./Config"
 class App extends Component {
   constructor(props){
     super(props)
@@ -20,7 +22,7 @@ class App extends Component {
       })
     }else{
       this.setState({isFetching: true})
-      let url="http://localhost:18080/search?input="+value
+      let url=global.constants.baseUrl+"/search?input="+value
       fetch(url)
         .then(response => response.json())
         .then(result => this.setState({data: result.data, isFetching: false}))
@@ -36,7 +38,7 @@ class App extends Component {
   render() {
     const InfoWithProps=(props)=>{
       return(
-        <Info onInfoInit={this.handleInfoInit}/>
+        <Info onInfoInit={this.handleInfoInit} props={props}/>
       )
     }
     return (
@@ -45,6 +47,7 @@ class App extends Component {
         <SearchList data={this.state.data}/>
         <Switch>
             <Route path="/info/:teacherId" render={InfoWithProps} />
+            <Route path="/markScore/:teacherId" component={MarkScore}/>
         </Switch>
         
       </div>

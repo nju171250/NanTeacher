@@ -12,7 +12,7 @@
 }
 .SearchItem .left .name{
     font-size: 25px;
-    color: purple;
+    color: rgb(106, 0, 95);
 }
 .SearchItem .left .department{
     font-size: 14px;
@@ -20,7 +20,7 @@
 }
 .SearchItem{
     border-bottom-style: dotted;
-    border-bottom-color: purple
+    border-bottom-color: rgb(106, 0, 95)
 }
 .SearchItem .left .name,.SearchItem .left .department,.SearchItem .score{
     margin-block-start: 0px;

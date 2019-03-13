@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Info.css';
-
+import Comments from "./Comments"
+import {Link} from "react-router-dom"
+import "./Config"
 class Info extends Component {
     constructor(props){
         super(props)
@@ -11,16 +13,16 @@ class Info extends Component {
         }
     }
     componentDidMount(){
-      this.props.onInfoInit()
+      this.props.onInfoInit();
       this.setState({isFetching: true})
-      let url="http://localhost:18080/getTeacherInfo?teacherId="+this.props.teacherId
+      let url=global.constants.baseUrl+"/getTeacherInfo?teacherId="+this.props.props.match.params.teacherId
       fetch(url)
         .then(response => response.json())
         .then(result => this.setState({data: result.data, isFetching: false}))
         .catch(e => console.log(e));
     }
   render() {
-      
+      console.log(this.props)
     return (
       <div className="Info">
           <div className="basicInfo">
@@ -40,11 +42,13 @@ class Info extends Component {
             {this.state.data.courses.map(p=>
                  <p className="course">{p.name}</p>
               )}
-            
           </div>
-          <div className="coments">
-
+          <Comments teacherId={this.props.props.match.params.teacherId}/>
+          <Link to={"/markScore/"+this.props.props.match.params.teacherId}>
+          <div className="markScore">
+            评分
           </div>
+          </Link>
       </div>
       
     );

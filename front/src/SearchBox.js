@@ -10,11 +10,15 @@ class SearchBox extends Component {
     }
     handleChange(e){
       this.props.onTextChange(e.target.value)
+      
     }
   render() {
       
     return (
-      <input onChange={this.handleChange} placeholder="" ></input>
+      <div className="SearchBox">
+       <input onChange={this.handleChange} placeholder="  南老师" ></input>
+      </div>
+      
       
     );
   }

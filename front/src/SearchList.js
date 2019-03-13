@@ -6,17 +6,10 @@ import {Link} from "react-router-dom"
 class SearchList extends Component {
     constructor(props){
         super(props)
-        this.fetchQuotes=this.fetchQuotes.bind(this)
+        
         
     }
-    fetchQuotes(){
-      this.setState({isFetching: true})
-      let url="http://localhost:18080/search?input="+this.props.searchContent
-      fetch(url)
-        .then(response => response.json())
-        .then(result => this.setState({data: result.data, isFetching: false}))
-        .catch(e => console.log(e));
-    }
+    
   
   render() {
     

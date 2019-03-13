@@ -1,0 +1,18 @@
+.Comments .comment{
+    border-bottom-color: rgb(106, 0, 95);
+    border-bottom-style: dashed;
+
+}
+.Comments .comment .left{
+    display: inline-block;
+
+}
+.Comments .comment .like{
+    position: absolute;
+    right: 10px;
+}
+.Comments .comment .left .commentTime,.Comments .comment .left .report{
+    font-size: 12px;
+    color: grey;
+    display: inline-block;
+}
