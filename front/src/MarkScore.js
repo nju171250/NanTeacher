@@ -19,32 +19,24 @@ class MarkScore extends Component {
         })
     }
     handleButtonClick(){
-      
-      
-        var data = {teacherId: this.props.match.params.teacherId,content:this.state.text,starNum:this.state.rating,openId:"aaa",courseId:"1"};
-        
+        var data = {
+          "teacherId": this.props.match.params.teacherId,
+          "content": this.state.text,
+          "starNum": this.state.rating,
+          "openId": "aaa",
+          "courseId": "1"};
+
         console.log(JSON.stringify(data))
-        Axios.post(global.constants.baseUrl+"/makeComment",data)
+        Axios.post("global.constants.baseUrl"+"/makeComment",data,
+        {headers:{
+          "Content-Type":"application/json; charset=UTF-8"
+        }})
         .then(function (response) {
           console.log(response);
         })
         .catch(function (error) {
           console.log(error);
-        });
-        // fetch(global.constants.baseUrl+"/makeComment", {
-        //    method: 'POST',
-        //    body: JSON.stringify(data),
-        //    headers: {
-        //     "Access-Control-Allow-Origin": "*",
-        //    'Content-Type': 'application/json',
-        //    "Access-Control-Allow-Credentials": "true",
-        //    "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
-        //    "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
-          
-        //   }
-        //    }).then(res => res.json())
-        //    .catch(error => console.error('Error:', error))
-        //    .then(response => console.log('Success:', response));   
+        }); 
     }
     handleTextAreaChange(e){
       this.setState({
