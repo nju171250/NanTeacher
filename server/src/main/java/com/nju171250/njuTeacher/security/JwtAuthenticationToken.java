@@ -2,49 +2,60 @@ package com.nju171250.njuTeacher.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 
-public class JwtAuthenticationToken {
-    private String header;
-    private String payload;
-    private String token;
-    private String signature;
+import java.util.Collection;
 
-    public JwtAuthenticationToken(DecodedJWT decodedJWT){
-        this.header = decodedJWT.getHeader();
-        this.payload = decodedJWT.getPayload();
-        this.token = decodedJWT.getToken();
-        this.signature = decodedJWT.getSignature();
+public class JwtAuthenticationToken extends AbstractAuthenticationToken {
+    private String details;
+    private String name;
+    private Object credentials;
+    private Object principal;
+    private Collection<? extends GrantedAuthority> authorities;
+    private boolean isAuthenticated;
+
+    public JwtAuthenticationToken(Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities){
+        super(authorities);
+        this.principal = principal;
+        this.credentials = credentials;
+        super.setAuthenticated(true);
     }
 
-    public String getSignature() {
-        return signature;
+    public JwtAuthenticationToken(String details){
+        super((Collection)null);
+        this.details = details;
     }
 
-    public void setSignature(String signature) {
-        this.signature = signature;
+
+    @Override
+    public Object getCredentials() {
+        return this.credentials;
     }
 
-    public String getToken() {
-        return token;
+    @Override
+    public Object getDetails() {
+        return this.details;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    @Override
+    public Object getPrincipal() {
+        return this.principal;
     }
 
-    public String getPayload() {
-        return payload;
+    @Override
+    public boolean isAuthenticated() {
+        return this.isAuthenticated;
     }
 
-    public void setPayload(String payload) {
-        this.payload = payload;
+    @Override
+    public void setAuthenticated(boolean b) throws IllegalArgumentException {
+        this.isAuthenticated = b;
     }
 
-    public String getHeader() {
-        return header;
-    }
-
-    public void setHeader(String header) {
-        this.header = header;
+    @Override
+    public String getName() {
+        return this.name;
     }
 }

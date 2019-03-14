@@ -36,7 +36,6 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
             username = jsonObj.getString("openid");
             password = jsonObj.getString("password");
         }
-
         if (username == null)
             username = "";
         if (password == null)
@@ -45,7 +44,6 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
         //封装到token中提交
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
                 username, password);
-
         return this.getAuthenticationManager().authenticate(authRequest);
     }
 }
