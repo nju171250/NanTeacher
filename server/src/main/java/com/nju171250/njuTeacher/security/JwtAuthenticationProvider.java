@@ -1,51 +1,60 @@
-//package com.nju171250.njuTeacher.security;
-//
-//import com.auth0.jwt.JWT;
-//import com.auth0.jwt.JWTVerifier;
-//import com.auth0.jwt.algorithms.Algorithm;
-//import com.auth0.jwt.interfaces.DecodedJWT;
-//import org.springframework.security.authentication.AuthenticationProvider;
-//import org.springframework.security.authentication.BadCredentialsException;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.AuthenticationException;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.web.authentication.www.NonceExpiredException;
-//
-//import java.util.Calendar;
-//
-//public class JwtAuthenticationProvider implements AuthenticationProvider {
-//    private JwtUserDetailService userService;
-//
-//    public JwtAuthenticationProvider(JwtUserDetailService userService) {
-//        this.userService = userService;
-//    }
-//
-//    @Override
-//    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-//        DecodedJWT jwt = ((JwtAuthenticationToken)authentication).getToken();
-//        if(jwt.getExpiresAt().before(Calendar.getInstance().getTime()))
-//            throw new NonceExpiredException("Token expires");
-//        String username = jwt.getSubject();
-//        UserDetails user = userService.getUserLoginInfo(username);
-//        if(user == null || user.getPassword()==null)
-//            throw new NonceExpiredException("Token expires");
-//        String encryptSalt = user.getPassword();
-//        try {
-//            Algorithm algorithm = Algorithm.HMAC256(encryptSalt);
-//            JWTVerifier verifier = JWT.require(algorithm)
-//                    .withSubject(username)
-//                    .build();
-//            verifier.verify(jwt.getToken());
-//        } catch (Exception e) {
-//            throw new BadCredentialsException("JWT token verify fail", e);
-//        }
-//        //成功后返回认证信息，filter会将认证信息放入SecurityContext
-//        JwtAuthenticationToken token = new JwtAuthenticationToken(user, jwt, user.getAuthorities());
-//        return token;
-//    }
-//
-//    @Override
-//    public boolean supports(Class<?> authentication) {
-//        return authentication.isAssignableFrom(JwtAuthenticationToken.class);
-//    }
-//}
+package com.nju171250.njuTeacher.security;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.nimbusds.jose.JOSEException;
+import com.nju171250.njuTeacher.utils.JWTUtils;
+import net.minidev.json.JSONObject;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.www.NonceExpiredException;
+
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.Map;
+
+public class JwtAuthenticationProvider implements AuthenticationProvider {
+    private JwtUserDetailService userService;
+
+    public JwtAuthenticationProvider(JwtUserDetailService userService) {
+        this.userService = userService;
+    }
+
+    @Override
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        // get token
+        String token = (String)authentication.getDetails();
+        Map<String, Object> result = null;
+        try {
+            result = JWTUtils.valid(token);
+        }catch (JOSEException e){
+            e.printStackTrace();
+        }catch (ParseException e){
+            e.printStackTrace();
+        }
+        if((int)result.get("result") == 1)
+            throw new BadCredentialsException("Bad Token");
+        if((int)result.get("result") == 2)
+            throw new NonceExpiredException("Token expires");
+        String username = ((JSONObject)result.get("data")).get("openid").toString();
+        UserDetails user = userService.loadUserByUsername(username);
+        if(user == null || user.getPassword()==null)
+            throw new NonceExpiredException("Token expires");
+        String encryptSalt = user.getPassword();
+        if(!((JSONObject)result.get("data")).get("password").toString().equals(encryptSalt))
+            throw new BadCredentialsException("Token Verify Failed");
+        //成功后返回认证信息，filter会将认证信息放入SecurityContext
+        JwtAuthenticationToken jwtToken = new JwtAuthenticationToken(user, token, user.getAuthorities());
+        return jwtToken;
+    }
+
+    @Override
+    public boolean supports(Class<?> authentication) {
+        return authentication.isAssignableFrom(JwtAuthenticationToken.class);
+    }
+}

@@ -20,4 +20,6 @@ public class JwtUserDetailService implements UserDetailsService {
         UserDetails userDetails = new MyUserDetails("njuTeacher", "{bcrypt}"+new BCryptPasswordEncoder().encode("njuTeacher"));
         return userDetails;
     }
+
+    public void deleteUserLoginInfo(String s){}
 }

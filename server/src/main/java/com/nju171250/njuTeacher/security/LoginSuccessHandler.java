@@ -31,13 +31,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         }catch (Exception e){
             e.printStackTrace();
         }
-        try {
-            System.out.println(((JSONObject)JWTUtils.valid(token).get("data")).get("exp"));
-        }catch (JOSEException e){
-            e.printStackTrace();
-        }catch (ParseException e2){
-            e2.printStackTrace();
-        }
         httpServletResponse.setHeader("Authorization", token);
     }
 }

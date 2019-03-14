@@ -44,7 +44,6 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
         //封装到token中提交
         UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(
                 username, password);
-
         return this.getAuthenticationManager().authenticate(authRequest);
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.header.Header;
 import org.springframework.security.web.header.writers.StaticHeadersWriter;
@@ -28,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/register","/search","/getTeacherInfo","/getCommentInfo","/makeComment","/swagger-ui.html").permitAll()
+                .antMatchers("/register","/search","/getCommentInfo","/makeComment","/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .csrf().disable()  //CRSF禁用，因为不使用session
@@ -44,15 +45,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //添加登录filter
                 .apply(new JsonLoginConfigurer<>()).loginSuccessHandler(new LoginSuccessHandler())
                 .and()
-//                //添加token的filter
-//                .apply(new JwtLoginConfigurer<>()).tokenValidSuccessHandler(jwtRefreshSuccessHandler()).permissiveRequestUrls("/logout")
-//                .and()
-//                //使用默认的logoutFilter
-//                .logout()
-////              .logoutUrl("/logout")   //默认就是"/logout"
-//                .addLogoutHandler(tokenClearLogoutHandler())  //logout时清除token
-//                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()) //logout成功后返回200
-//                .and()
+                //添加token的filter
+                .apply(new JwtLoginConfigurer<>()).tokenValidSuccessHandler(new JwtRefreshSuccessHandler()).permissiveRequestUrls("/logout")
+                .and()
+                //使用默认的logoutFilter
+                .logout()
+//              .logoutUrl("/logout")   //默认就是"/logout"
+                .addLogoutHandler(new TokenClearLogoutHandler(userDetailsService()))  //logout时清除token
+                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()) //logout成功后返回200
+                .and()
                 .sessionManagement().disable();
     }
 
@@ -68,9 +69,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(daoAuthenticationProvider()).authenticationProvider(jwtAuthenticationProvider());
+    }
+
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Bean("jwtAuthenticationProvider")
+    protected AuthenticationProvider jwtAuthenticationProvider() {
+        return new JwtAuthenticationProvider(new JwtUserDetailService());
     }
 
     @Bean("daoAuthenticationProvider")
