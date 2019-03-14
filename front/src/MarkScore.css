@@ -1,4 +1,4 @@
-.markScore{
+.markScore .rater{
     font-size: 50px;
 }
 .markScore textarea{
@@ -17,12 +17,15 @@
 .markScore div{
     text-align: center;
 }
-button{
+.markScore button{
     background-color: rgb(106, 0, 95);
     height: 40px;
     width: 50%;
     color: white;
     font-size: 23px;
-    
-    
+}
+.markScore .radio{
+    color:rgb(106, 0, 95);
+    font-family: "楷体";
+    font-size: 18px;
 }

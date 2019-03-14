@@ -10,8 +10,20 @@ class MarkScore extends Component {
     constructor(props){
         super(props)
         this.state={
-          rating:3
+          rating:3,
+        data:{
+          courses:[]
         }
+        }
+    }
+    componentDidMount(){
+      
+      this.setState({isFetching: true})
+      let url=global.constants.baseUrl+"/getTeacherInfo?teacherId="+this.props.match.params.teacherId
+      fetch(url)
+        .then(response => response.json())
+        .then(result => this.setState({data: result, isFetching: false}))
+        .catch(e => console.log(e));
     }
     handleRate({rating}){
         this.setState({
@@ -52,20 +64,33 @@ class MarkScore extends Component {
       })
       
     }
+    handleRadioChange(e){
+      this.setState({
+        courseId: e.target.value
+      })
+      
+    }
   render() {
     console.log(this.state)
     return (
         
       <div className="markScore">
-        <div>
+        <div className="radio">
+          <tr>
+          {this.state.data.courses.map(p=>
+            <td><input type="radio" value={p.courseId} onChange={this.handleRadioChange.bind(this)}></input>{p.courseName}</td>
+          )}
+           </tr>
+        </div>
+        <div className="rater">
          <Rater rating={this.state.rating} onRate={this.handleRate.bind(this)}/>
          </div>
         <textarea onChange={this.handleTextAreaChange.bind(this) } placeholder="留下你的上课体验~"></textarea>
-        {/* <Link to={"/info/"+this.props.match.params.teacherId}>
-        <button onClick={this.handleButtonClick.bind(this)}>提交</button>
-        </Link> */}
+        
         <div>
+        <Link to={"/info/"+this.props.match.params.teacherId}>
         <button onClick={this.handleButtonClick.bind(this)}>提交</button>
+        </Link> 
         </div>
         
     </div>

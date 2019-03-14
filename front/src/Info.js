@@ -27,9 +27,15 @@ class Info extends Component {
         .then(result => this.setState({data: result, isFetching: false}))
         .catch(e => console.log(e));
     }
+    handleCommentsInit(commentNum){
+      this.setState({
+        commentNum: commentNum
+      })
+    }
   render() {
     
       console.log(this.props)
+      console.log(this.state)
     return (
       <div className="Info">
           <div className="basicInfo">
@@ -41,7 +47,7 @@ class Info extends Component {
             </div>
             <div className="right">
                <p className="score">{new Number(this.state.data.teacher.teacherScore).toFixed(2)}</p>
-               <p className="participantNum">0个人参与评分</p>
+               <p className="participantNum">{this.state.commentNum}个人参与评分</p>
             </div>
           </div>
           <div className="courses">
@@ -50,7 +56,7 @@ class Info extends Component {
                  <p className="course">{p.courseName}</p>
               )} 
           </div>
-          <Comments teacherId={this.props.props.match.params.teacherId}/>
+          <Comments teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/>
           <Link to={"/markScore/"+this.props.props.match.params.teacherId}>
           <div className="markScore">
             评分
