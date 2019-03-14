@@ -17,10 +17,10 @@ public class SearchController {
     public List<Teacher> searchTeacher(String input){
         List<Teacher> list = teacherMapper.searchTeacher("%"+input+"%");
         for(Teacher teacher : list){
-            list.remove(teacher);
             while(list.contains(teacher)){// 由于join了course可能会出现重复的老师，所以要去掉
                 list.remove(teacher);
             }
+            list.add(teacher);
         }
         return list;
     }
