@@ -15,17 +15,17 @@ public class UserController {
     @Autowired
     UserMapper userMapper;
 
-    @PostMapping(value = "/login")
-    public Response login(@RequestBody String openid,@RequestBody String password){
-        // 若count值为1，说明已经注册过
-        UserExample userExample = new UserExample();
-        UserExample.Criteria criteria = userExample.createCriteria();
-        criteria.andUserIdEqualTo(openid);
-        if(userMapper.countByExample(userExample) == 1)
-            return new Response("登录成功");
-        else
-            return new Response("登录失败");
-    }
+//    @PostMapping(value = "/login")
+//    public Response login(@RequestBody String openid,@RequestBody String password){
+//        // 若count值为1，说明已经注册过
+//        UserExample userExample = new UserExample();
+//        UserExample.Criteria criteria = userExample.createCriteria();
+//        criteria.andUserIdEqualTo(openid);
+//        if(userMapper.countByExample(userExample) == 1)
+//            return new Response("登录成功");
+//        else
+//            return new Response("登录失败");
+//    }
 
 //    @PostMapping(value = "/register")
 //    public Response register(@RequestBody String openid){

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.HttpSecurityBuilder;
@@ -39,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 new Header("Access-control-Allow-Origin","*"),
                 new Header("Access-Control-Expose-Headers","Authorization"))))
                 .and() //拦截OPTIONS请求，直接返回header
-//                .addFilterAfter(new OptionRequestFilter(), CorsFilter.class)
+                .addFilterAfter(new OptionsRequestFilter(), CorsFilter.class)
                 //添加登录filter
                 .apply(new JsonLoginConfigurer<>()).loginSuccessHandler(new LoginSuccessHandler())
                 .and()
@@ -53,12 +54,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()) //logout成功后返回200
 //                .and()
                 .sessionManagement().disable();
-
     }
-//    @Bean
-//    public UserDetailsService userDetailsService{
-//        return new NjuTeacherUserDetailsService();
+
+//    //配置provider
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.authenticationProvider(daoAuthenticationProvider()).authenticationProvider(jwtAuthenticationProvider());
 //    }
+
+    // 装载BCrypt密码编码器
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean("daoAuthenticationProvider")
+    protected AuthenticationProvider daoAuthenticationProvider() throws Exception{
+        //这里会默认使用BCryptPasswordEncoder比对加密后的密码，注意要跟createUser时保持一致
+        DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
+        daoProvider.setUserDetailsService(userDetailsService());
+        return daoProvider;
+    }
+
+    public UserDetailsService userDetailsService(){
+        return new JwtUserDetailService();
+    }
 //    @Autowired
 //    private CustomAuthenticationProvider authProvider;
 //

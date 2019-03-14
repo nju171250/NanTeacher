@@ -36,7 +36,6 @@ public class UsernamePasswordAuthenticationFilter extends AbstractAuthentication
             username = jsonObj.getString("openid");
             password = jsonObj.getString("password");
         }
-
         if (username == null)
             username = "";
         if (password == null)
