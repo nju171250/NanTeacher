@@ -8,6 +8,12 @@ class Info extends Component {
         super(props)
         this.state={
           data:{
+            teacher:{
+              teacherName:"",
+            teacherCollegename:"",
+            teacherDepartment:"",
+            teacherScore:0
+            },
             courses:[]
           }
         }
@@ -18,30 +24,31 @@ class Info extends Component {
       let url=global.constants.baseUrl+"/getTeacherInfo?teacherId="+this.props.props.match.params.teacherId
       fetch(url)
         .then(response => response.json())
-        .then(result => this.setState({data: result.data, isFetching: false}))
+        .then(result => this.setState({data: result, isFetching: false}))
         .catch(e => console.log(e));
     }
   render() {
+    
       console.log(this.props)
     return (
       <div className="Info">
           <div className="basicInfo">
             <div className="left">
-              <p className="name">{this.state.data.name}</p>
-              <p className="collegeName">{this.state.data.collegeName}</p>
-              <p className="department">{this.state.data.department}</p>
+              <p className="name">{this.state.data.teacher.teacherName}</p>
+              <p className="collegeName">{this.state.data.teacher.teacherCollegename}</p>
+              <p className="department">{this.state.data.teacher.teacherDepartment}</p>
             
             </div>
             <div className="right">
-               <p className="score">{new Number(this.state.data.score).toFixed(2)}</p>
-               <p className="participantNum">{this.state.data.participantNum}个人参与评分</p>
+               <p className="score">{new Number(this.state.data.teacher.teacherScore).toFixed(2)}</p>
+               <p className="participantNum">0个人参与评分</p>
             </div>
           </div>
           <div className="courses">
             <p className="title">所教课程</p>
             {this.state.data.courses.map(p=>
-                 <p className="course">{p.name}</p>
-              )}
+                 <p className="course">{p.courseName}</p>
+              )} 
           </div>
           <Comments teacherId={this.props.props.match.params.teacherId}/>
           <Link to={"/markScore/"+this.props.props.match.params.teacherId}>

@@ -16,7 +16,8 @@ class App extends Component {
     this.handleInfoInit=this.handleInfoInit.bind(this)
   }
   handleTextChange(value){
-    if(value===""){
+    console.log(value)
+    if(value===""||value===" "){
       this.setState({
         data:[]
       })
@@ -25,7 +26,7 @@ class App extends Component {
       let url=global.constants.baseUrl+"/search?input="+value
       fetch(url)
         .then(response => response.json())
-        .then(result => this.setState({data: result.data, isFetching: false}))
+        .then(result => this.setState({data: result, isFetching: false}))
         .catch(e => console.log(e));
       
     }
@@ -36,6 +37,7 @@ class App extends Component {
     })
   }
   render() {
+    
     const InfoWithProps=(props)=>{
       return(
         <Info onInfoInit={this.handleInfoInit} props={props}/>

@@ -8,14 +8,14 @@ class SearchItem extends Component {
         super(props)
     }
   render() {
-      
+    
     return (
       <div className="SearchItem">
          <div className="left">
-         <p className="name">{this.props.data.name}</p>
-         <p className="department">{this.props.data.department}</p>
+         <p className="name">{this.props.data.teacherName}</p>
+         <p className="department">{this.props.data.teacherDepartment}</p>
          </div>
-         <p className="score">{this.props.data.score}</p>
+         <p className="score">{this.props.data.teacherScore}</p>
       </div>
       
     );

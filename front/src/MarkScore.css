@@ -2,6 +2,7 @@
     font-size: 50px;
 }
 .markScore textarea{
+    font-size: 20px;
     -web-kit-appearance:none;
     -moz-appearance: none;
     border-radius:4px;
@@ -12,4 +13,16 @@
      height: 300px;
      margin: 3%;
      background-color: rgba(226, 223, 223, 0.932);
+}
+.markScore div{
+    text-align: center;
+}
+button{
+    background-color: rgb(106, 0, 95);
+    height: 40px;
+    width: 50%;
+    color: white;
+    font-size: 23px;
+    
+    
 }
