@@ -1,34 +1,48 @@
 import React, { Component } from 'react';
-//import './App.css';
-import {Route,Switch,Link} from 'react-router-dom'
+import './App.css';
+import {Route,Switch,Router} from 'react-router-dom'
 import SearchList from './SearchList';
 import Info from './Info'
 import SearchBox from './SearchBox'
 import MarkScore from './MarkScore'
 import "./Config"
+import Axios from 'axios';
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
+import tan90 from './tan90.gif'
 class App extends Component {
   constructor(props){
     super(props)
     this.state={
-      data:[]
+      data:[],
+      searchText:""
     }
     this.handleTextChange=this.handleTextChange.bind(this)
     this.handleInfoInit=this.handleInfoInit.bind(this)
   }
   componentDidMount(){
     this.setState({isFetching: true})
-    let url=global.constants.baseUrl+"/login?openid=njuTeacher&password=njuTeacher"
-    fetch(url)
-      .then(response => response.json())
-      .then(result => {
-        console.log(result)
-        this.setState({isFetching:false})
+    var data={
+      openid:"nanTeacher",
+      password:"nanTeacher"
     }
-      )
-      .catch(e => console.log(e));
+    Axios.post(global.constants.baseUrl+"/login",data,
+        {headers:{
+          "Content-Type":"application/json; charset=UTF-8"
+        }})
+        .then(function (response) {
+          this.setState({isFetching:false})
+          console.log(response);
+        })
+        .catch(function (error) {
+          
+          console.log(error);
+        }); 
+        this.setState({isFetching:false})
   }
   handleTextChange(value){
+    this.setState({
+      searchText:value
+    })
     console.log(value)
     if(value===""||value===" "){
       this.setState({
@@ -49,25 +63,31 @@ class App extends Component {
         })
 
         .catch(e => console.log(e));
+
       
     }
   }
   handleInfoInit(){
     this.setState({
-      data:[]
+      data:[],
+      searchText:""
     })
+
   }
   render() {
-    
     const InfoWithProps=(props)=>{
       return(
         <Info onInfoInit={this.handleInfoInit} props={props}/>
       )
     }
     return (
-      <div>
-        <SearchBox onTextChange={this.handleTextChange} isNeedClear={this.state.data===[]?true:false}/>
+      
+      <div className="App">
+        <SearchBox onTextChange={this.handleTextChange} searchText={this.state.searchText}/>
         <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
+        {
+          (this.state.searchText!=""&&this.state.searchText!=" "&&this.state.data.length===0)?<div className="notFound"><p>小南找不到了</p><img src={tan90}/></div>:<p></p>
+        }
         <SearchList data={this.state.data}/>
         <Switch>
             <Route path="/info/:teacherId" render={InfoWithProps} />
@@ -75,6 +95,7 @@ class App extends Component {
         </Switch>
         
       </div>
+      
     );
   }
 }

@@ -46,7 +46,7 @@ class MarkScore extends Component {
           "content": this.state.text,
           "starNum": this.state.rating,
           "openId": "aaa",
-          "courseId": "1"};
+          "courseId": this.state.courseId};
 
         console.log(JSON.stringify(data))
         Axios.post(global.constants.baseUrl+"/makeComment",data,
