@@ -93,4 +93,6 @@ public interface CourseMapper {
      * @mbggenerated Mon Mar 11 20:03:45 CST 2019
      */
     int updateByPrimaryKey(Course record);
+
+
 }

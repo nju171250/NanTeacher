@@ -11,9 +11,9 @@
         <sqlMapGenerator targetPackage="com.nju171250.njuTeacher.mapper" targetProject="C:\Users\Junhui Chen\Desktop\hackthon_mat\server\src\main\java"  />
         <javaClientGenerator targetPackage="com.nju171250.njuTeacher.mapper" targetProject="C:\Users\Junhui Chen\Desktop\hackthon_mat\server\src\main\java"
                              type="XMLMAPPER"/>
-        <table tableName="sys_permission"></table>
+        <!--<table tableName="sys_permission"></table>-->
         <!--<table tableName="course"></table>-->
         <!--<table tableName="teacher"></table>-->
-        <!--<table tableName="comment"></table>-->
+        <table tableName="comment"></table>
     </context>
 </generatorConfiguration>

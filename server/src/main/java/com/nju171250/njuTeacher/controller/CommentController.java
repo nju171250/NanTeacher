@@ -30,6 +30,7 @@ public class CommentController {
         comment.setUserId(jsonObject.getString("openid"));
         comment.setCommentTime(new Date());
         comment.setCourseId(jsonObject.getString("courseId"));
+        comment.setLikeNum(0);
         commentMapper.insert(comment);
     }
 
