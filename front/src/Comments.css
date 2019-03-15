@@ -1,7 +1,7 @@
 .Comments .comment{
     border-bottom-color: rgb(106, 0, 95);
-    border-bottom-style: dashed;
-
+    border-bottom-style: dotted;
+    border-bottom-width: 2px;
 }
 .Comments .comment .left{
     display: inline-block;
@@ -15,4 +15,10 @@
     font-size: 12px;
     color: grey;
     display: inline-block;
+}
+.Comments .header{
+    border-bottom-color: rgb(106, 0, 95);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding: 5px;
 }

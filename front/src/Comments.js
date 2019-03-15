@@ -16,15 +16,19 @@ class Comments extends Component {
       let url=global.constants.baseUrl+"/getCommentInfo?teacherId="+this.props.teacherId
       fetch(url)
         .then(response => response.json())
-        .then(result => this.setState({data: {comments:result}, isFetching: false}))
+        .then(result => {this.setState({data: {comments:result}, isFetching: false});
+        this.props.onCommentsInit(this.state.data.comments.length);
+        })
         .catch(e => console.log(e));
+
+      
     }
   render() {
-      
+      console.log(this.state)
     return (
       <div className="Comments">
          <div className="header">
-
+         {this.state.data.comments.length}条评论
          </div>
          {this.state.data.comments.map(p=>
             <div className="comment">
