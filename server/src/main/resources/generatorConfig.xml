@@ -14,6 +14,6 @@
         <!--<table tableName="sys_permission"></table>-->
         <!--<table tableName="course"></table>-->
         <!--<table tableName="teacher"></table>-->
-        <table tableName="comment"></table>
+        <table tableName="record_do_favourite"></table>
     </context>
 </generatorConfiguration>

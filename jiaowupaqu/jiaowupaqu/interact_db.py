@@ -32,7 +32,7 @@ def insert_teacher():
   for course in myresult:
     teachers = str(course[8]).replace(' ', '').split(",")
     for teacher in teachers:
-      cursor.execute("SELECT teacher_name FROM teacher where teacher_name = '" + teacher + "'")
+      cursor.execute("SELECT teacher_id FROM teacher where teacher_name = '" + teacher + "'")
       result = cursor.fetchone()
       if result == None:
         # 插入老师
@@ -46,11 +46,9 @@ def insert_teacher():
         i = i + 1
         print(teacher + '插入成功')
       else:
-        # print()
-        sql = "INSERT INTO `njuTeacher`.`course`(`course_id`, `course_id_school`, `teacher_id`, `course_name`, `course_type`, `course_academy`, `course_credit`, `course_area`, `course_teacher`) " + "VALUES('" + str(uuid.uuid1()).replace("-", "") + "','" + course[0] + "','" + str(i) + "','" + course[3] + "','" + course[4] + "','" + course[5] + "','" + str(int(course[6])) + "','" + course[7] + "','" + course[8] + "')"
+        sql = "INSERT INTO `njuTeacher`.`course`(`course_id`, `course_id_school`, `teacher_id`, `course_name`, `course_type`, `course_academy`, `course_credit`, `course_area`, `course_teacher`) " + "VALUES('" + str(uuid.uuid1()).replace("-", "") + "','" + course[0] + "','" + result[0] + "','" + course[3] + "','" + course[4] + "','" + course[5] + "','" + str(int(course[6])) + "','" + course[7] + "','" + course[8] + "')"
         cursor.execute(sql)     
         connector.commit()
-        i = i + 1
         print(teacher + '已存在' + '课程插入成功')
 
 if __name__ == '__main__':
