@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,11 +17,15 @@ public class SearchController {
     @GetMapping(value = "/search")
     public List<Teacher> searchTeacher(String input){
         List<Teacher> list = teacherMapper.searchTeacher("%"+input+"%");
-        for(Teacher teacher : list){
-            while(list.contains(teacher)){// 由于join了course可能会出现重复的老师，所以要去掉
-                list.remove(teacher);
+        List<String> alreadyHave = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){// 由于搜索join了course所以会出现重复
+            Teacher temp = list.get(i);
+            if(alreadyHave.contains(temp.getTeacherId())){
+                list.remove(i);
+                i--;
             }
-            list.add(teacher);
+            else
+                alreadyHave.add(temp.getTeacherId());
         }
         return list;
     }
