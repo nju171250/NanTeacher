@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/register","/search","/getCommentInfo","/makeComment","/swagger-ui.html").permitAll()
+                .antMatchers("/register","/search","/getCommentInfo", "/getTeacherInfo","/makeComment","/swagger-ui.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .csrf().disable()  //CRSF禁用，因为不使用session
