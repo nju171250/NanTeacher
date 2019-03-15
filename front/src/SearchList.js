@@ -12,7 +12,7 @@ class SearchList extends Component {
     
   
   render() {
-    
+    console.log(this.props)
     return (
         this.props.data.map(p=>
         <Link to={"info/"+p.teacherId}><SearchItem data={p}/></Link>

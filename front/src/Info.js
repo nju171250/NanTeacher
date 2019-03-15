@@ -3,6 +3,7 @@ import './Info.css';
 import Comments from "./Comments"
 import {Link} from "react-router-dom"
 import "./Config"
+import { BallScaleRippleMultiple } from 'react-pretty-loading';
 class Info extends Component {
     constructor(props){
         super(props)
@@ -24,7 +25,14 @@ class Info extends Component {
       let url=global.constants.baseUrl+"/getTeacherInfo?teacherId="+this.props.props.match.params.teacherId
       fetch(url)
         .then(response => response.json())
-        .then(result => this.setState({data: result, isFetching: false}))
+        .then(result => {
+          if(result.status!==undefined){
+            this.setState({isFetching: false})
+          }else{
+            this.setState({data: result, isFetching: false})
+          }
+          
+        })
         .catch(e => console.log(e));
     }
     handleCommentsInit(commentNum){
@@ -38,6 +46,7 @@ class Info extends Component {
       console.log(this.state)
     return (
       <div className="Info">
+          <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
           <div className="basicInfo">
             <div className="left">
               <p className="name">{this.state.data.teacher.teacherName}</p>

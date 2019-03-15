@@ -1,6 +1,9 @@
 .markScore .rater{
-    font-size: 50px;
+    /* font-size: 50px; */
+    
 }
+
+
 .markScore textarea{
     font-size: 20px;
     -web-kit-appearance:none;

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
 import "./Config";
-import Rater from 'react-rater'
-import 'react-rater/lib/react-rater.css'
+import 'element-theme-default';
+
 import './MarkScore.css'
 import {Link} from 'react-router-dom'
 import Axios from 'axios';
+import {Rate} from 'element-react'
+import { BallScaleRippleMultiple } from 'react-pretty-loading';
 class MarkScore extends Component {
     constructor(props){
         super(props)
@@ -22,13 +24,21 @@ class MarkScore extends Component {
       let url=global.constants.baseUrl+"/getTeacherInfo?teacherId="+this.props.match.params.teacherId
       fetch(url)
         .then(response => response.json())
-        .then(result => this.setState({data: result, isFetching: false}))
+        .then(result => {
+          if(result.status!==undefined){
+            this.setState({data: {courses:[]}, isFetching: false})
+          }else{
+            this.setState({data: result, isFetching: false})
+        }
+      }
+        )
         .catch(e => console.log(e));
     }
-    handleRate({rating}){
+    handleRate(rating){
         this.setState({
             rating:rating
         })
+        console.log(this.state)
     }
     handleButtonClick(){
         var data = {
@@ -39,7 +49,7 @@ class MarkScore extends Component {
           "courseId": "1"};
 
         console.log(JSON.stringify(data))
-        Axios.post("global.constants.baseUrl"+"/makeComment",data,
+        Axios.post(global.constants.baseUrl+"/makeComment",data,
         {headers:{
           "Content-Type":"application/json; charset=UTF-8"
         }})
@@ -67,6 +77,7 @@ class MarkScore extends Component {
     return (
         
       <div className="markScore">
+        <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
         <div className="radio">
           <tr>
           {this.state.data.courses.map(p=>
@@ -74,8 +85,8 @@ class MarkScore extends Component {
           )}
            </tr>
         </div>
-        <div className="rater">
-         <Rater rating={this.state.rating} onRate={this.handleRate.bind(this)}/>
+        <div className="rater" >
+         <Rate onChange={this.handleRate.bind(this)} value={this.state.rating}/>
          </div>
         <textarea onChange={this.handleTextAreaChange.bind(this) } placeholder="留下你的上课体验~"></textarea>
         
