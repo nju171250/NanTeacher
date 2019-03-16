@@ -6,7 +6,7 @@ import 'element-theme-default';
 import './MarkScore.css'
 import {Link} from 'react-router-dom'
 import Axios from 'axios';
-import {Rate,Select} from 'element-react'
+import {Rate, Select, Input, Button} from 'element-react'
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
 
 import Cookies from 'universal-cookie';
@@ -82,27 +82,48 @@ class MarkScore extends Component {
     }
   render() {
     console.log(this.state)
+    const css={
+      "margin-right":"24px"
+    }
+    const InputStyle={
+      "margin-top":"10px"
+    }
     return (
         
       <div className="markScore">
         <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
-        <Select value={this.state.value} placeholder="请选择">
-          {
-            this.state.data.courses.map(el => {
-              return <Select.Option key={el.courseId} label={el.courseName} value={el.courseId}  />
-            })
-          }
-        </Select>
-        {/* <div className="radio">
-          <tr>
-          {this.state.data.courses.map(p=>
-            <td><input type="radio" value={p.courseId} onChange={this.handleRadioChange.bind(this)}></input>{p.courseName}</td>
-          )}
-           </tr>
-        </div> */}
-        <div className="rater" >
-         <Rate onChange={this.handleRate.bind(this)} value={this.state.rating}/>
-         </div>
+        <div class="commentCourse">
+          <div class="selectCourse">
+            <span style={css}>评价课程</span>
+            <Select value={this.state.value} placeholder="请选择">
+              {
+                this.state.data.courses.map(el => {
+                  return <Select.Option key={el.courseId} label={el.courseName} value={el.courseId}  />
+                })
+              }
+            </Select>
+          </div>
+          {/* <div className="radio">
+            <tr>
+            {this.state.data.courses.map(p=>
+              <td><input type="radio" value={p.courseId} onChange={this.handleRadioChange.bind(this)}></input>{p.courseName}</td>
+            )}
+            </tr>
+          </div> */}
+          <div className="rater" >
+            <span style={css}>评价课程</span>
+            <Rate onChange={this.handleRate.bind(this)} value={this.state.rating}/>
+          </div>
+        </div>
+        <Input
+          style={InputStyle}
+          type="textarea"
+          autosize={{ minRows: 3, maxRows: 4}}
+          placeholder="留下你的上课体验吧~~"
+        />
+        <div class="buttonDiv">
+          <Button plain={true} type="success">成功按钮</Button>
+        </div>
         <textarea onChange={this.handleTextAreaChange.bind(this) } placeholder="留下你的上课体验~"></textarea>
         
         <div>
