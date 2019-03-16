@@ -63,7 +63,7 @@ class Info extends Component {
           </div>
           <Tabs activeName="2" onTabClick={ (tab) => console.log(tab.props.name) }>
             <Tabs.Pane label="最新评论" name="1">最新评论</Tabs.Pane>
-            <Tabs.Pane label="所有课程" name="2">
+            <Tabs.Pane label="所教课程" name="2">
               <Collapse value={this.state.data.activeName}>
                 {this.state.data.courses.map(p=>
                   <Collapse.Item title={p.courseName} name={p.courseName}>
@@ -72,12 +72,12 @@ class Info extends Component {
               </Collapse>
             </Tabs.Pane>
           </Tabs>
-          <div className="courses">
+          {/* <div className="courses">
             <p className="title">所教课程</p>
             {this.state.data.courses.map(p=>
                  <p className="course">{p.courseName}</p>
               )} 
-          </div>
+          </div> */}
           <Comments teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/>
           <Link to={"/markScore/"+this.props.props.match.params.teacherId}>
           <div className="markScore">
