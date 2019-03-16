@@ -8,20 +8,26 @@ import MarkScore from './MarkScore'
 import "./Config"
 import Axios from 'axios';
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
-import tan90 from './tan90.gif'
+import tan90 from './tan90.gif';
+
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 class App extends Component {
   constructor(props){
     super(props)
     this.state={
       isFetching:false,
       data:[],
-      searchText:""
+      searchText:"",
+      token:"aaa"
     }
     this.handleTextChange=this.handleTextChange.bind(this)
     this.handleInfoInit=this.handleInfoInit.bind(this)
+    
   }
   componentDidMount(){
-    
+    var this_=this
+    var token="";
     var data={
       openid:"nanTeacher",
       password:"njuTeacher"
@@ -31,17 +37,47 @@ class App extends Component {
           "Content-Type":"application/json; charset=UTF-8"
         }})
         .then(function (response) {
-          
-          global.token=response.headers.authorization
-          
-          console.log(global.token)
+          console.log(response)
+
+          token=response.headers.authorization
+          cookies.set('token',token,{path:'/'})
+          this_.setState({
+            token:token
+          })
         })
         .catch(function (error) {
+          if(error.response){
+            if(error.response.status===401){
+              Axios.post(global.constants.baseUrl+"/register",data,
+        {headers:{
+          "Content-Type":"application/json; charset=UTF-8"
+        }})
+        .then(function (response) {
+          Axios.post(global.constants.baseUrl+"/login",data,
+        {headers:{
+          "Content-Type":"application/json; charset=UTF-8"
+        }})
+        .then(function (response) {
+          console.log(response)
+          token=response.headers.authorization
+          cookies.set('token',token,{path:'/'})
+          this_.setState({
+            token:token
+          })
+        })
+        })
+        .catch(function (error) {
+          console.log(error)
           
-          console.log(error);
         }); 
+            }
+          }
+
+        }); 
+        
        
   }
+  
   handleTextChange(value){
     this.setState({
       searchText:value
@@ -54,7 +90,11 @@ class App extends Component {
     }else{
       this.setState({isFetching: true})
       let url=global.constants.baseUrl+"/search?input="+value
-      fetch(url)
+      fetch(url,{
+        headers:{
+          Authorization:this.state.token
+        }
+      })
         .then(response => response.json())
         .then(result => {
           if(result.status!==undefined){
@@ -78,9 +118,15 @@ class App extends Component {
 
   }
   render() {
+    console.log(this.state.token)
     const InfoWithProps=(props)=>{
       return(
-        <Info onInfoInit={this.handleInfoInit} props={props}/>
+        <Info onInfoInit={this.handleInfoInit} token={this.state.token} props={props}/>
+      )
+    }
+    const MarkScoreWithProps=(props)=>{
+      return(
+        <MarkScore token={this.state.token} props={props}/>
       )
     }
     return (
@@ -94,7 +140,7 @@ class App extends Component {
         <SearchList data={this.state.data}/>
         
           {!(this.state.searchText!=""&&this.state.searchText!=" ")?<Switch><Route path="/info/:teacherId" render={InfoWithProps} />
-    <Route path="/markScore/:teacherId" component={MarkScore}/></Switch>:<div></div>}
+    <Route path="/markScore/:teacherId" render={MarkScoreWithProps}/></Switch>:<div></div>}
             
         
         

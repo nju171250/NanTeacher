@@ -8,6 +8,9 @@ import {Link} from 'react-router-dom'
 import Axios from 'axios';
 import {Rate, Select, Input, Button} from 'element-react'
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
+
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 class MarkScore extends Component {
     constructor(props){
         super(props)
@@ -21,8 +24,12 @@ class MarkScore extends Component {
     componentDidMount(){
       
       this.setState({isFetching: true})
-      let url=global.constants.baseUrl+"/getTeacherInfo?teacherId="+this.props.match.params.teacherId
-      fetch(url)
+      let url=global.constants.baseUrl+"/getTeacherInfo?teacherId="+this.props.props.match.params.teacherId
+      fetch(url,{
+        headers:{
+          Authorization:cookies.get('token')
+        }
+      })
         .then(response => response.json())
         .then(result => {
           if(result.status!==undefined){
@@ -42,7 +49,7 @@ class MarkScore extends Component {
     }
     handleButtonClick(){
         var data = {
-          "teacherId": this.props.match.params.teacherId,
+          "teacherId": this.props.props.match.params.teacherId,
           "content": this.state.text,
           "starNum": this.state.rating,
           "openid": "aaa",
@@ -51,7 +58,8 @@ class MarkScore extends Component {
         console.log(JSON.stringify(data))
         Axios.post(global.constants.baseUrl+"/makeComment",data,
         {headers:{
-          "Content-Type":"application/json; charset=UTF-8"
+          "Content-Type":"application/json; charset=UTF-8",
+          "Authorization":cookies.get('token')
         }})
         .then(function (response) {
           console.log(response);
@@ -119,7 +127,7 @@ class MarkScore extends Component {
         <textarea onChange={this.handleTextAreaChange.bind(this) } placeholder="留下你的上课体验~"></textarea>
         
         <div>
-        <Link to={"/info/"+this.props.match.params.teacherId}>
+        <Link to={"/info/"+this.props.props.match.params.teacherId}>
         <button onClick={this.handleButtonClick.bind(this)}>提交</button>
         </Link> 
         </div>

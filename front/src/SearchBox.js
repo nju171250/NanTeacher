@@ -12,12 +12,13 @@ class SearchBox extends Component {
     handleChange(e){
       this.props.onTextChange(e.target.value)
     }
+    
   render() {
       
     return (
       <div className="SearchBox">
-        <Input icon="search" onChange={this.handleChange} placeholder="南老师" value={this.props.searchText}></Input>
-        {/* <input onChange={this.handleChange} placeholder="  南老师" value={this.props.searchText}></input> */}
+        {/* <Input icon="search" onChange={this.handleChange} placeholder="南老师" value={this.props.searchText}></Input> */}
+        <input onChange={this.handleChange} placeholder="  南老师" value={this.props.searchText}></input>
       </div>
       
       

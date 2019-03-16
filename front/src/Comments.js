@@ -3,7 +3,9 @@ import './Comments.css';
 import "./Config";
 import Axios from 'axios';
 import _ from 'lodash';
+import Cookies from 'universal-cookie';
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
+const cookies = new Cookies();
 class Comments extends Component {
     constructor(props){
         super(props)
@@ -24,7 +26,11 @@ class Comments extends Component {
       
       Axios.post(global.constants.baseUrl+"/getUserDoFavouriteSituation",data,
       {headers:{
-        "Content-Type":"application/json; charset=UTF-8"
+        "Content-Type":"application/json; charset=UTF-8",
+        
+            "Authorization":cookies.get('token')
+          
+        
       }})
       .then(result=>{
         
@@ -50,7 +56,11 @@ class Comments extends Component {
     }
     thumbsUp(commentId,likeIt){
       let url=global.constants.baseUrl+"/thumbsUp?commentId="+commentId+"&likeIt="+likeIt+"&openid=aaa"
-      fetch(url)
+      fetch(url,{
+        headers:{
+          Authorization:cookies.get('token')
+        }
+      })
         .then(result => {
            this.componentDidMount();
           })
@@ -73,7 +83,11 @@ class Comments extends Component {
     componentDidMount(){
       this.setState({isFetching: true})
       let url=global.constants.baseUrl+"/getCommentInfo?teacherId="+this.props.teacherId
-      fetch(url)
+      fetch(url,{
+        headers:{
+          Authorization:cookies.get('token')
+        }
+      })
         .then(response => response.json())
         .then(result => {
           if(result.status!==undefined){

@@ -6,7 +6,13 @@ import "./Config"
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
 import { Tabs, Collapse } from 'element-react';
 import 'element-theme-default';
+<<<<<<< HEAD
 import Axios from 'axios';
+=======
+
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
+>>>>>>> a926119680fe68f246870f9a1102111e6ac0d803
 class Info extends Component {
     constructor(props){
         super(props)
@@ -24,11 +30,16 @@ class Info extends Component {
         }
     }
     componentDidMount(){
+      
       this.props.onInfoInit();
       this.getComments();
       this.setState({isFetching: true})
       let url=global.constants.baseUrl+"/getTeacherInfo?teacherId="+this.props.props.match.params.teacherId
-      fetch(url)
+      fetch(url,{
+        headers:{
+          Authorization:cookies.get('token')
+        }
+      })
         .then(response => response.json())
         .then(result => {
           if(result.status!==undefined){
@@ -116,7 +127,11 @@ class Info extends Component {
                  <p className="course">{p.courseName}</p>
               )} 
           </div> */}
+<<<<<<< HEAD
           {/* <Comments teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/> */}
+=======
+          <Comments token={window.token} teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/>
+>>>>>>> a926119680fe68f246870f9a1102111e6ac0d803
           <Link to={"/markScore/"+this.props.props.match.params.teacherId}>
           <div className="markScore">
             评分

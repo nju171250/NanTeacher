@@ -8,13 +8,15 @@
     "element-react": "^1.4.33",
     "element-theme-default": "^1.4.13",
     "lodash": "^4.17.11",
+    "prop-types": "^15.7.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-hot-loader": "^4.8.0",
     "react-pretty-loading": "^1.0.9",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.8"
+    "react-scripts": "2.1.8",
+    "universal-cookie": "^3.0.7"
   },
   "scripts": {
     "start": "react-scripts start",
