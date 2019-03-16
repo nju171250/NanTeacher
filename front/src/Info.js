@@ -279,6 +279,7 @@ class Info extends Component {
           {/* <Comments token={window.token} teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/> */}
           <Link to={"/markScore/"+this.props.props.match.params.teacherId}>
           <div className="markScore">
+            <i className="el-icon-edit"></i>
             评分
           </div>
           </Link>
