@@ -7,11 +7,8 @@ import { BallScaleRippleMultiple } from 'react-pretty-loading';
 import { Tabs, Collapse } from 'element-react';
 import 'element-theme-default';
 import Axios from 'axios';
-<<<<<<< HEAD
 import tan90 from './tan90.gif';
-=======
 import _ from 'lodash';
->>>>>>> cd0641e6b698c9cef6ad7fa4a8b787038ced1346
 
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
