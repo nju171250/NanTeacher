@@ -7,6 +7,7 @@ import { BallScaleRippleMultiple } from 'react-pretty-loading';
 import { Tabs, Collapse } from 'element-react';
 import 'element-theme-default';
 import Axios from 'axios';
+import _ from 'lodash';
 
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
@@ -53,11 +54,57 @@ class Info extends Component {
         commentNum: commentNum
       })
     }
+    fetchFavouriteSituation(commentsId){
+      var this_ = this
+      var favouriteInfos=[];
+      var data = {
+        openid: 'aaa',
+        commentIds: commentsId
+      };
+
+      
+      Axios.post(global.constants.baseUrl+"/getUserDoFavouriteSituation",data,
+      {headers:{
+        "Content-Type":"application/json; charset=UTF-8",
+        
+            "Authorization":cookies.get('token')
+          
+        
+      }})
+      .then(result=>{
+        
+        favouriteInfos=result.data;
+        console.log(this.state.comments)
+        var merge=_.map(this.state.comments,function(item){
+           var res=_.merge(item,_.find(favouriteInfos,{commentId:item.commentId}));
+           console.log(res)
+           return res;
+        });
+        console.log(merge)
+        this.setState({
+          
+            comments:merge
+          
+        })
+      })
+      .catch(function (error) {
+        console.log(error);
+      }); 
+      
+      
+    }
     getComments(){
       var this_ = this
       var url = global.constants.baseUrl + "/getCommentInfo?teacherId=" + this.props.props.match.params.teacherId
-      Axios.get(url).then(response =>{
+      Axios.get(url,{
+        headers:{
+          Authorization:cookies.get('token')
+        }
+      }).then(response =>{
         this_.setState({comments: response.data})
+        this_.fetchFavouriteSituation(this_.state.comments.map(p=>
+          p.commentId
+        ));
         console.log(this_.state.comments)
       })
     }
@@ -72,6 +119,32 @@ class Info extends Component {
       )
       else
         return null
+    }
+    thumbsUp(commentId,likeIt){
+      let url=global.constants.baseUrl+"/thumbsUp?commentId="+commentId+"&likeIt="+likeIt+"&openid=aaa"
+      fetch(url,{
+        headers:{
+          Authorization:cookies.get('token')
+        }
+      })
+        .then(result => {
+           this.componentDidMount();
+          })
+        .catch(e => console.log(e));
+    }
+    getLikeCssStyle(favouriteSituation,type){
+      //favouriteSituation: true赞过 false踩过 null未点击
+      //type：true为赞 false为踩
+      const css={
+        'background-color': 'red'
+      }
+      console.log(favouriteSituation+" "+type)
+      if(favouriteSituation==type){
+        return css;
+      }
+      else{
+        return {};
+      }
     }
   render() {
       console.log(this.props)
@@ -97,6 +170,15 @@ class Info extends Component {
                   <div class="newcommentDetail">
                     <div class="commentContent">{comment.commentContent}</div>
                     <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+                    <div className="right">
+                   <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
+                     <i className="el-icon-caret-top"/>
+                     <p className="likeNum">赞同{comment.likeNum}</p>
+                    </div>
+                   <div className="dislike" onClick={this.thumbsUp.bind(this,comment.commentId,0)} style={this.getLikeCssStyle(comment.favouriteSituation,false)}>
+                    <i className="el-icon-caret-bottom"/>
+                   </div>
+                   </div>
                   </div>
               )}
             </Tabs.Pane>
@@ -124,11 +206,7 @@ class Info extends Component {
                  <p className="course">{p.courseName}</p>
               )} 
           </div> */}
-<<<<<<< HEAD
-          {/* <Comments teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/> */}
-=======
-          <Comments token={window.token} teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/>
->>>>>>> a926119680fe68f246870f9a1102111e6ac0d803
+          {/* <Comments token={window.token} teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/> */}
           <Link to={"/markScore/"+this.props.props.match.params.teacherId}>
           <div className="markScore">
             评分
