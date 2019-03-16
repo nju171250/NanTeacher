@@ -9,9 +9,10 @@
 }
 .Info .basicInfo .left .name{
     font-size: 40px;
-    color: rgb(106, 0, 95);
+    color: #409EFF;
     margin-block-start: 0px;
     margin-block-end: 0px;
+    margin-bottom: 10px;
 }
 .Info .basicInfo .left .collegeName,.Info .basicInfo .left .department{
     color: grey;
@@ -20,11 +21,15 @@
     margin-bottom: 10px;
 }
 .Info .right .score{
-    color: rgb(106, 0, 95);
+    color: #303133;
     font-size: 45px;
     margin-block-start: 0px;
     margin-block-end: 0px;
-   
+}
+.Info .right .participantNum{
+    display: flex;
+   justify-content: flex-end;
+   color: #606266;
 }
 .Info .courses{
     border-radius:4px;
