@@ -17,7 +17,10 @@ public class JwtUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserDetails userDetails = new MyUserDetails("njuTeacher", "{bcrypt}"+new BCryptPasswordEncoder().encode("njuTeacher"));
+        User user = userMapper.selectByPrimaryKey(s);
+        UserDetails userDetails = null;
+        if(user != null)
+         userDetails = new MyUserDetails(user.getUserId(), "{bcrypt}"+new BCryptPasswordEncoder().encode("njuTeacher"));
         return userDetails;
     }
 

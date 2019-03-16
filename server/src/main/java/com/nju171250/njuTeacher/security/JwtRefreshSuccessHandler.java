@@ -43,5 +43,7 @@ public class JwtRefreshSuccessHandler implements AuthenticationSuccessHandler {
                 e.printStackTrace();
             }
         }
+        else
+            httpServletResponse.setHeader("Authorization", token);
     }
 }

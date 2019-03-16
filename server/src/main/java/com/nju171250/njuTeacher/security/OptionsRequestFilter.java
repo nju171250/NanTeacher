@@ -14,7 +14,7 @@ public class OptionsRequestFilter extends  OncePerRequestFilter {
             throws ServletException, IOException {
         if(request.getMethod().equals("OPTIONS")) {
             response.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS,HEAD");
-            response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+            response.setHeader("Access-Control-Allow-Headers", "Content-Type,authorization");
             return;
         }
         filterChain.doFilter(request, response);

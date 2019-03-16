@@ -1,5 +1,6 @@
 package com.nju171250.njuTeacher.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.nju171250.njuTeacher.mapper.UserMapper;
 import com.nju171250.njuTeacher.model.User;
 import com.nju171250.njuTeacher.model.UserExample;
@@ -27,17 +28,18 @@ public class UserController {
 //            return new Response("登录失败");
 //    }
 
-//    @PostMapping(value = "/register")
-//    public Response register(@RequestBody String openid){
-//        // 首先判断是否存在，若存在则注册，否则注册失败
-//        User user = userMapper.selectByPrimaryKey(openid);
-//        if(user == null) {
-//            user = new User();
-//            user.setUserId(openid);
-//            userMapper.insertSelective(user);
-//            return new Response("注册成功");
-//        }
-//        else
-//            return new Response("注册失败");
-//    }
+    @PostMapping(value = "/register")
+    public Response register(@RequestBody JSONObject jsonObject){
+        String openid = jsonObject.getString("openid");
+        // 首先判断是否存在，若存在则注册，否则注册失败
+        User user = userMapper.selectByPrimaryKey(openid);
+        if(user == null) {
+            user = new User();
+            user.setUserId(openid);
+            userMapper.insertSelective(user);
+            return new Response("注册成功");
+        }
+        else
+            return new Response("注册失败");
+    }
 }
