@@ -45,7 +45,7 @@ class MarkScore extends Component {
           "teacherId": this.props.match.params.teacherId,
           "content": this.state.text,
           "starNum": this.state.rating,
-          "openId": "aaa",
+          "openid": "aaa",
           "courseId": this.state.courseId};
 
         console.log(JSON.stringify(data))

@@ -17,7 +17,7 @@ class Comments extends Component {
     fetchFavouriteSituation(commentsId){
       var favouriteInfos=[];
       var data = {
-        openId: 'aaa',
+        openid: 'aaa',
         commentIds: commentsId
       };
 

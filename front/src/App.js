@@ -21,24 +21,26 @@ class App extends Component {
     this.handleInfoInit=this.handleInfoInit.bind(this)
   }
   componentDidMount(){
-    this.setState({isFetching: true})
+    
     var data={
       openid:"nanTeacher",
-      password:"nanTeacher"
+      password:"njuTeacher"
     }
     Axios.post(global.constants.baseUrl+"/login",data,
         {headers:{
           "Content-Type":"application/json; charset=UTF-8"
         }})
         .then(function (response) {
-          this.setState({isFetching:false})
-          console.log(response);
+          
+          global.token=response.headers.authorization
+          
+          console.log(global.token)
         })
         .catch(function (error) {
           
           console.log(error);
         }); 
-        this.setState({isFetching:false})
+       
   }
   handleTextChange(value){
     this.setState({
