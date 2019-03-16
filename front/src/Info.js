@@ -6,6 +6,7 @@ import "./Config"
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
 import { Tabs, Collapse } from 'element-react';
 import 'element-theme-default';
+import Axios from 'axios';
 class Info extends Component {
     constructor(props){
         super(props)
@@ -18,11 +19,13 @@ class Info extends Component {
             teacherScore:0
             },
             courses:[]
-          }
+          },
+          comments:[]
         }
     }
     componentDidMount(){
       this.props.onInfoInit();
+      this.getComments();
       this.setState({isFetching: true})
       let url=global.constants.baseUrl+"/getTeacherInfo?teacherId="+this.props.props.match.params.teacherId
       fetch(url)
@@ -42,8 +45,27 @@ class Info extends Component {
         commentNum: commentNum
       })
     }
+    getComments(){
+      var this_ = this
+      var url = global.constants.baseUrl + "/getCommentInfo?teacherId=" + this.props.props.match.params.teacherId
+      Axios.get(url).then(response =>{
+        this_.setState({comments: response.data})
+        console.log(this_.state.comments)
+      })
+    }
+    acomment(comment, p){
+      console.log(comment)
+      if(comment.courseId == p.courseId)
+      return(
+      <div class="commentDetail">
+        <div class="commentContent">{comment.commentContent}</div>
+        <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+      </div>
+      )
+      else
+        return null
+    }
   render() {
-    
       console.log(this.props)
       console.log(this.state)
     return (
@@ -61,12 +83,28 @@ class Info extends Component {
                <p className="participantNum">{this.state.commentNum}个人参与评分</p>
             </div>
           </div>
-          <Tabs activeName="2" onTabClick={ (tab) => console.log(tab.props.name) }>
-            <Tabs.Pane label="最新评论" name="1">最新评论</Tabs.Pane>
+          <Tabs activeName="1" onTabClick={ (tab) => console.log(tab.props.name) }>
+            <Tabs.Pane label="最新评论" name="1">
+              {this.state.comments.map(comment=>
+                  <div class="newcommentDetail">
+                    <div class="commentContent">{comment.commentContent}</div>
+                    <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+                  </div>
+              )}
+            </Tabs.Pane>
             <Tabs.Pane label="所教课程" name="2">
               <Collapse value={this.state.data.activeName}>
                 {this.state.data.courses.map(p=>
                   <Collapse.Item title={p.courseName} name={p.courseName}>
+                    {this.state.comments.map(comment=>
+                      // {comment.courseId == p.courseId &&
+                        // <div class="commentDetail">
+                        //   <div class="commentContent">{comment.commentContent}</div>
+                        //   <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+                        // </div>
+                        this.acomment(comment, p)
+                      // }
+                    )}
                   </Collapse.Item>
                 )} 
               </Collapse>
@@ -78,7 +116,7 @@ class Info extends Component {
                  <p className="course">{p.courseName}</p>
               )} 
           </div> */}
-          <Comments teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/>
+          {/* <Comments teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/> */}
           <Link to={"/markScore/"+this.props.props.match.params.teacherId}>
           <div className="markScore">
             评分
