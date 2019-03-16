@@ -117,7 +117,8 @@ public class CommentController {
         if(courseId == null || courseId.equals("")){
             return commentMapper.getCommentInfoByTeacherId(teacherId);
         }
-        else
+        else {
             return commentMapper.getCommentInfoByCourseId(courseId);
+        }
     }
 }
