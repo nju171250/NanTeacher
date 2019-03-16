@@ -226,7 +226,7 @@ class Info extends Component {
             </div>
             <div className="right">
                <p className="score">{new Number(this.state.data.teacher.teacherScore).toFixed(2)}</p>
-               <p className="participantNum">{this.state.commentNum}个人参与评分</p>
+               <p className="participantNum">{this.state.comments.length}个人参与评分</p>
             </div>
           </div>
           <Tabs activeName="1" onTabClick={ (tab) => console.log(tab.props.name) }>
