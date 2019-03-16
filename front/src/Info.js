@@ -25,9 +25,11 @@ class Info extends Component {
             },
             courses:[]
           },
-          comments:[]
+          comments:[],
+          activeName:[]
         }
     }
+    
     componentDidMount(){
       
       this.props.onInfoInit();
@@ -211,6 +213,11 @@ class Info extends Component {
         return {};
       }
     }
+    handleCollapseChange(activeNames){
+      this.setState({
+        activeName:activeNames
+      });
+    }
   render() {
       // console.log(this.props)
       // console.log(this.state)
@@ -249,7 +256,7 @@ class Info extends Component {
               )} */}
             </Tabs.Pane>
             <Tabs.Pane label="所教课程" name="2">
-              <Collapse value={this.state.data.activeName}>
+              <Collapse value={this.state.activeName} >
                 {this.state.data.courses.map(p=>
                   <Collapse.Item title={p.courseName} name={p.courseName}>
                     {this.temp(p)}
