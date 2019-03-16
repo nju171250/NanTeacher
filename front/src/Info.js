@@ -132,6 +132,10 @@ class Info extends Component {
         )
       }
     }
+    getLikeText(favouriteSituation){
+      if(favouriteSituation===true) return '已赞同'
+      else return '赞同'
+    }
     newestComment(){
       if(this.state.comments.length > 0)
         return(
@@ -144,7 +148,8 @@ class Info extends Component {
               <div className="right">
                    <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
                      <i className="el-icon-caret-top"/>
-                     <span className="likeNum">赞同{comment.likeNum}</span>
+                     <span className="likeNum"> {this.getLikeText(comment.favouriteSituation)}{comment.likeNum}</span>
+                     
                     </div>
                    <div className="dislike" onClick={this.thumbsUp.bind(this,comment.commentId,0)} style={this.getLikeCssStyle(comment.favouriteSituation,false)}>
                     <i className="el-icon-caret-bottom"/>
