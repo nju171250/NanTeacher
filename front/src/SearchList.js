@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './SearchList.css'
 import SearchItem from './SearchItem'
 import {Link,withRouter} from "react-router-dom"
+import {Menu, Table} from "element-react"
 
 class SearchList extends Component {
     constructor(props){
@@ -20,10 +21,21 @@ class SearchList extends Component {
   render() {
     console.log(this.props)
     return (
-        this.props.data.map(p=>
-        <SearchItem data={p} onClick={this.handleItemClick.bind(this)}/>
+      <div>
+        {this.props.data.map((p, index)=>
+          <div class="searchResult" onClick={this.handleItemClick.bind(this, p.teacherId)}>
+            {p.teacherName}
+            <span class="teacherScore">{p.teacherScore}</span>
+          <div class="department">
+            {p.teacherDepartment}
+          </div>
+          </div>
+        )}
+      </div>
+        // this.props.data.map(p=>
+        // <SearchItem data={p} onClick={this.handleItemClick.bind(this)}/>
         
-        )
+        // )
     );
   }
 }

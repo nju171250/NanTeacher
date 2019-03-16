@@ -6,3 +6,28 @@ a{
     display: block;
     
 }
+.searchResult{
+    height: 66px;
+    margin: 0 auto;
+    width: 90%;
+    color: #409EFF;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    border-bottom-style: solid;
+    border-bottom-width: 0.5px;
+    border-bottom-color: #dcdfe0;
+}
+.department{
+    margin-top: 10px;
+    font-size: 14px;
+    color: #606266;
+    font-weight: 500;
+}
+.teacherScore{
+    float: right;
+    top: 0;
+    color: #303133;
+    font-weight: 400;
+    font-size: 30px;
+}

@@ -7,6 +7,7 @@ import { BallScaleRippleMultiple } from 'react-pretty-loading';
 import { Tabs, Collapse } from 'element-react';
 import 'element-theme-default';
 import Axios from 'axios';
+import tan90 from './tan90.gif';
 
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
@@ -62,20 +63,65 @@ class Info extends Component {
       })
     }
     acomment(comment, p){
-      console.log(comment)
-      if(comment.courseId == p.courseId)
-      return(
-      <div class="commentDetail">
-        <div class="commentContent">{comment.commentContent}</div>
-        <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
-      </div>
+      if(comment.courseId === p.courseId){
+        console.log('fuckyou!')
+        return(
+        <div class="commentDetail">
+          <div class="commentContent">{comment.commentContent}</div>
+          <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+        </div>
+        )
+      }
+    }
+    newestComment(){
+      if(this.state.comments.length > 0)
+        return(
+          this.state.comments.map(comment=>
+            <div class="newcommentDetail">
+              <div class="commentContent">{comment.commentContent}</div>
+              <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+            </div>
+        )
       )
+      else 
+        return(
+          <div>
+            <div className="notFound"><p>小南找不到该老师的评价</p><img src={tan90}/></div>
+          </div>
+        )
+    }
+    getCommentNumByCourseId(courseId){
+      console.log(courseId)
+      var n = 0;
+      for(var i = 0; i < this.state.comments.length; i++){
+        if(this.state.comments[i].courseId == courseId)
+          n=n+1;
+      }
+      return n;
+    }
+    temp(p){
+      if(this.getCommentNumByCourseId(p.courseId) > 0)
+      return(
+        this.state.comments.map(comment=>
+        // {comment.courseId == p.courseId &&
+          // <div class="commentDetail">
+          //   <div class="commentContent">{comment.commentContent}</div>
+          //   <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+          // </div>
+          this.acomment(comment, p)
+        // }
+      ))
       else
-        return null
+        return(
+          <div>
+            <div className="notFound"><p>小南找不到该课程的评价</p><img src={tan90}/></div>
+          </div>
+        )
     }
   render() {
-      console.log(this.props)
-      console.log(this.state)
+      // console.log(this.props)
+      // console.log(this.state)
+     
     return (
       <div className="Info">
           <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
@@ -93,26 +139,19 @@ class Info extends Component {
           </div>
           <Tabs activeName="1" onTabClick={ (tab) => console.log(tab.props.name) }>
             <Tabs.Pane label="最新评论" name="1">
-              {this.state.comments.map(comment=>
+              {this.newestComment()}
+              {/* {this.state.comments.map(comment=>
                   <div class="newcommentDetail">
                     <div class="commentContent">{comment.commentContent}</div>
                     <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
                   </div>
-              )}
+              )} */}
             </Tabs.Pane>
             <Tabs.Pane label="所教课程" name="2">
               <Collapse value={this.state.data.activeName}>
                 {this.state.data.courses.map(p=>
                   <Collapse.Item title={p.courseName} name={p.courseName}>
-                    {this.state.comments.map(comment=>
-                      // {comment.courseId == p.courseId &&
-                        // <div class="commentDetail">
-                        //   <div class="commentContent">{comment.commentContent}</div>
-                        //   <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
-                        // </div>
-                        this.acomment(comment, p)
-                      // }
-                    )}
+                    {this.temp(p)}
                   </Collapse.Item>
                 )} 
               </Collapse>
@@ -130,8 +169,7 @@ class Info extends Component {
             评分
           </div>
           </Link>
-      </div>
-      
+      </div>      
     );
   }
 }
