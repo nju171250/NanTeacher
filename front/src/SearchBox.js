@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import {withRouter} from "react-router-dom";
 import './SearchBox.css'
 import {Input} from "element-react"
+import 'element-theme-default';
 class SearchBox extends Component {
     constructor(props){
         super(props)
@@ -10,15 +11,15 @@ class SearchBox extends Component {
         
     }
     handleChange(e){
-      this.props.onTextChange(e.target.value)
+      this.props.onTextChange(e)
     }
     
   render() {
       
     return (
       <div className="SearchBox">
-        {/* <Input icon="search" onChange={this.handleChange} placeholder="南老师" value={this.props.searchText}></Input> */}
-        <input onChange={this.handleChange} placeholder="  南老师" value={this.props.searchText}></input>
+        <Input icon="search" onChange={this.handleChange} placeholder="南老师" value={this.props.searchText}></Input>
+        {/* <input class="el-input" onChange={this.handleChange} placeholder="  南老师" value={this.props.searchText}></input> */}
       </div>
       
       
