@@ -13,6 +13,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state={
+      isFetching:false,
       data:[],
       searchText:""
     }
@@ -86,13 +87,14 @@ class App extends Component {
         <SearchBox onTextChange={this.handleTextChange} searchText={this.state.searchText}/>
         <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
         {
-          (this.state.searchText!=""&&this.state.searchText!=" "&&this.state.data.length===0)?<div className="notFound"><p>小南找不到了</p><img src={tan90}/></div>:<p></p>
+          (this.state.searchText!=""&&this.state.searchText!=" "&&this.state.data.length===0&&this.state.isFetching===false)?<div className="notFound"><p>小南找不到了</p><img src={tan90}/></div>:<p></p>
         }
         <SearchList data={this.state.data}/>
-        <Switch>
-            <Route path="/info/:teacherId" render={InfoWithProps} />
-            <Route path="/markScore/:teacherId" component={MarkScore}/>
-        </Switch>
+        
+          {!(this.state.searchText!=""&&this.state.searchText!=" ")?<Switch><Route path="/info/:teacherId" render={InfoWithProps} />
+    <Route path="/markScore/:teacherId" component={MarkScore}/></Switch>:<div></div>}
+            
+        
         
       </div>
       

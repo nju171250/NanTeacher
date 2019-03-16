@@ -3,15 +3,39 @@
     border-bottom-style: dotted;
     border-bottom-width: 2px;
 }
-.Comments .comment .left{
-    display: inline-block;
 
+.Comments .comment .foot .right{
+    display: inline-block;
 }
-.Comments .comment .like{
-    position: absolute;
-    right: 10px;
+.Comments .comment .foot .right{
+    position: relative;
+    right: -40%;
 }
-.Comments .comment .left .commentTime,.Comments .comment .left .report{
+.Comments .comment{
+    margin-left: 5px;
+}
+.Comments .comment .content{
+    width: 90%;
+    margin-left: 5px;
+    
+}
+.Comments .comment .right .like{
+    border-radius:4px;
+   border:1px solid #c8cccf;
+   background-color: rgba(226, 223, 223, 0.932);
+  display: inline;
+}
+.Comments .comment .right .like .likeNum{
+    display: inline;
+}
+.Comments .comment .right .dislike{
+    margin-left: 6px;
+    display: inline;
+    border-radius:4px;
+   border:1px solid #c8cccf;
+   background-color: rgba(226, 223, 223, 0.932);
+}
+.Comments .comment .foot .commentTime,.Comments .comment .foot .report{
     font-size: 12px;
     color: grey;
     display: inline-block;

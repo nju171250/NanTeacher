@@ -39,14 +39,20 @@ class Comments extends Component {
          <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
          {this.state.data.comments.map(p=>
             <div className="comment">
-               <div className="left">
-                 <p className="content">{p.commentContent}</p>
-                 <p className="commentTime">发布于{p.commentTime===null||p.commentTime.length<10?p.commentTime:p.commentTime.substring(0,10)}</p>
-                 <p className="report">举报</p>
+               <p className="content">{p.commentContent}</p>
+               <div className="foot">
+                  <p className="commentTime">发布于{p.commentTime===null||p.commentTime.length<10?p.commentTime:p.commentTime.substring(0,10)}</p>
+                  <p className="report">举报</p>
+                  <div className="right">
+                   <div className="like">
+                     <i className="el-icon-caret-top"/>
+                     <p className="likeNum">赞同{p.likeNum}</p>
+                    </div>
+                   <div className="dislike">
+                    <i className="el-icon-caret-bottom"/>
+                   </div>
+                   </div>
                </div>
-               <div className="like">
-                  <p>{p.likeNum}</p>
-                </div>
             </div>
             )} 
       </div>
