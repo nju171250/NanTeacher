@@ -61,6 +61,8 @@
     margin-bottom: 20px;
 }
 .newcommentDetail{
+    display: flex;
+    flex-direction: row;
     border-bottom-style: solid;
     border-bottom-width: 0.5px;
     border-bottom-color: #dcdfe0;
@@ -76,7 +78,35 @@
  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
  sans-serif;
 }
-.commentDetail .right{
+.newcommentDetail .right{
     display: flex;
     flex-direction: row;
+    margin-right: 0;
+    margin-left:auto;
+    margin-bottom: 6px;
+    margin-top: auto;
+    height: 20px;
+    align-items: center;
+}
+.newcommentDetail .right .like{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    height: 28px;
+    width: 70px;
+    background: rgb(244, 244, 245);
+    margin-right: 8px;
+}
+.newcommentDetail .right .like .likeNum{
+    margin-left: 2px;
+    font-size: 12px;
+}
+.newcommentDetail .right .dislike{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    width: 30px;;
+    background: rgb(233, 233, 235);
 }

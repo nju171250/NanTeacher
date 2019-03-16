@@ -112,9 +112,11 @@ class Info extends Component {
     acomment(comment, p){
       if(comment.courseId === p.courseId){
         return(
-        <div class="commentDetail">
+        <div class="newcommentDetail">
+          <div>
           <div class="commentContent">{comment.commentContent}</div>
           <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+          </div>
           <div className="right">
             <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
               <i className="el-icon-caret-top"/>
@@ -133,17 +135,19 @@ class Info extends Component {
         return(
           this.state.comments.map(comment=>
             <div class="newcommentDetail">
-              <div class="commentContent">{comment.commentContent}</div>
-              <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+              <div>
+                <div class="commentContent">{comment.commentContent}</div>
+                <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+              </div>
               <div className="right">
                    <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
                      <i className="el-icon-caret-top"/>
-                     <p className="likeNum">赞同{comment.likeNum}</p>
+                     <span className="likeNum">赞同{comment.likeNum}</span>
                     </div>
                    <div className="dislike" onClick={this.thumbsUp.bind(this,comment.commentId,0)} style={this.getLikeCssStyle(comment.favouriteSituation,false)}>
                     <i className="el-icon-caret-bottom"/>
                    </div>
-                   </div>
+              </div>
             </div>
         )
       )
@@ -197,7 +201,7 @@ class Info extends Component {
       //favouriteSituation: true赞过 false踩过 null未点击
       //type：true为赞 false为踩
       const css={
-        'background-color': 'red'
+        "color": "rgb(121, 187, 255)"
       }
       console.log(favouriteSituation+" "+type)
       if(favouriteSituation==type){
@@ -219,7 +223,6 @@ class Info extends Component {
               <p className="name">{this.state.data.teacher.teacherName}</p>
               <p className="collegeName">{this.state.data.teacher.teacherCollegename}</p>
               <p className="department">{this.state.data.teacher.teacherDepartment}</p>
-            
             </div>
             <div className="right">
                <p className="score">{new Number(this.state.data.teacher.teacherScore).toFixed(2)}</p>
