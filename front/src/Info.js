@@ -7,11 +7,8 @@ import { BallScaleRippleMultiple } from 'react-pretty-loading';
 import { Tabs, Collapse } from 'element-react';
 import 'element-theme-default';
 import Axios from 'axios';
-<<<<<<< HEAD
 import tan90 from './tan90.gif';
-=======
 import _ from 'lodash';
->>>>>>> cd0641e6b698c9cef6ad7fa4a8b787038ced1346
 
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
@@ -114,11 +111,19 @@ class Info extends Component {
     }
     acomment(comment, p){
       if(comment.courseId === p.courseId){
-        console.log('fuckyou!')
         return(
         <div class="commentDetail">
           <div class="commentContent">{comment.commentContent}</div>
           <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+          <div className="right">
+            <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
+              <i className="el-icon-caret-top"/>
+              <p className="likeNum">赞同{comment.likeNum}</p>
+            </div>
+            <div className="dislike" onClick={this.thumbsUp.bind(this,comment.commentId,0)} style={this.getLikeCssStyle(comment.favouriteSituation,false)}>
+            <i className="el-icon-caret-bottom"/>
+            </div>
+          </div>
         </div>
         )
       }
@@ -130,6 +135,15 @@ class Info extends Component {
             <div class="newcommentDetail">
               <div class="commentContent">{comment.commentContent}</div>
               <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+              <div className="right">
+                   <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
+                     <i className="el-icon-caret-top"/>
+                     <p className="likeNum">赞同{comment.likeNum}</p>
+                    </div>
+                   <div className="dislike" onClick={this.thumbsUp.bind(this,comment.commentId,0)} style={this.getLikeCssStyle(comment.favouriteSituation,false)}>
+                    <i className="el-icon-caret-bottom"/>
+                   </div>
+                   </div>
             </div>
         )
       )
@@ -141,7 +155,6 @@ class Info extends Component {
         )
     }
     getCommentNumByCourseId(courseId){
-      console.log(courseId)
       var n = 0;
       for(var i = 0; i < this.state.comments.length; i++){
         if(this.state.comments[i].courseId == courseId)

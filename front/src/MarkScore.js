@@ -83,10 +83,10 @@ class MarkScore extends Component {
   render() {
     console.log(this.state)
     const css={
-      "margin-right":"24px"
+      "marginRight":"24px"
     }
     const InputStyle={
-      "margin-top":"10px"
+      "marginTop":"10px"
     }
     return (
         
