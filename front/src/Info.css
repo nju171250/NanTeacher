@@ -44,7 +44,7 @@
     font-size: 13px;
 }
 .Info .markScore{
-    background-color: rgba(106, 0, 95,1);
+    background-color: rgba(121, 187, 255,1);
     position: fixed;
     bottom: 0px;
     width: 100%;
@@ -52,6 +52,10 @@
     font-size: 30px;
     color: white;
     text-align: center;
+}
+.Info .markScore .el-icon-edit{
+    font-size: 25px;
+    margin-right: 10px;
 }
 .commentTime{
     margin-bottom: 6px;
