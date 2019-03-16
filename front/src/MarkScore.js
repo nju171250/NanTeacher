@@ -6,7 +6,7 @@ import 'element-theme-default';
 import './MarkScore.css'
 import {Link} from 'react-router-dom'
 import Axios from 'axios';
-import {Rate} from 'element-react'
+import {Rate,Select} from 'element-react'
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
 class MarkScore extends Component {
     constructor(props){
@@ -78,13 +78,20 @@ class MarkScore extends Component {
         
       <div className="markScore">
         <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
-        <div className="radio">
+        <Select value={this.state.value} placeholder="请选择">
+          {
+            this.state.data.courses.map(el => {
+              return <Select.Option key={el.courseId} label={el.courseName} value={el.courseId}  />
+            })
+          }
+        </Select>
+        {/* <div className="radio">
           <tr>
           {this.state.data.courses.map(p=>
             <td><input type="radio" value={p.courseId} onChange={this.handleRadioChange.bind(this)}></input>{p.courseName}</td>
           )}
            </tr>
-        </div>
+        </div> */}
         <div className="rater" >
          <Rate onChange={this.handleRate.bind(this)} value={this.state.rating}/>
          </div>
