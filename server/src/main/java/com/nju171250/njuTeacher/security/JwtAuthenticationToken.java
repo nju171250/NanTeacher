@@ -23,9 +23,9 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
         super.setAuthenticated(true);
     }
 
-    public JwtAuthenticationToken(String details){
+    public JwtAuthenticationToken(String credentials){
         super((Collection)null);
-        this.details = details;
+        this.credentials = credentials;
     }
 
 

@@ -1,5 +1,6 @@
 package com.nju171250.njuTeacher.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class TokenClearLogoutHandler implements LogoutHandler {
-
     private JwtUserDetailService jwtUserService;
 
     public TokenClearLogoutHandler(UserDetailsService jwtUserService) {

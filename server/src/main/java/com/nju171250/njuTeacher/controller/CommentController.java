@@ -8,6 +8,7 @@ import com.nju171250.njuTeacher.model.Comment;
 import com.nju171250.njuTeacher.model.CommentExample;
 import com.nju171250.njuTeacher.model.RecordDoFavourite;
 import com.nju171250.njuTeacher.model.RecordDoFavouriteExample;
+import com.nju171250.njuTeacher.service.TeacherService;
 import com.nju171250.njuTeacher.utils.UUIDUtils;
 import org.apache.ibatis.binding.BindingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class CommentController {
     UUIDUtils uuidUtils;
     @Autowired
     RecordDoFavouriteMapper recordDoFavouriteMapper;
+    @Autowired
+    TeacherService teacherService;
 
     @PostMapping(value = "/getUserDoFavouriteSituation")
     public JSONArray getUserDoFavouriteSituation(@RequestBody JSONObject object){
@@ -103,6 +106,9 @@ public class CommentController {
         comment.setCourseId(jsonObject.getString("courseId"));
         comment.setLikeNum(0);
         commentMapper.insert(comment);
+
+        // 老师分数实时更新
+        teacherService.computeTeacherScore(jsonObject.getString("courseId"));
     }
 
     @GetMapping(value = "/getCommentInfo")
@@ -111,7 +117,8 @@ public class CommentController {
         if(courseId == null || courseId.equals("")){
             return commentMapper.getCommentInfoByTeacherId(teacherId);
         }
-        else
+        else {
             return commentMapper.getCommentInfoByCourseId(courseId);
+        }
     }
 }

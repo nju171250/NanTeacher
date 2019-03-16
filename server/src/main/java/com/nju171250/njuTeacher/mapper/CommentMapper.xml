@@ -333,16 +333,24 @@
   </select>
   <select id="getCommentInfoByCourseId" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
-      comment.comment_id,
-      comment.course_id,
-      comment.user_id,
-      comment.comment_content,
-      comment.comment_stars,
-      comment.comment_time,
-      comment.like_num
+    comment.comment_id,
+    comment.course_id,
+    comment.user_id,
+    comment.comment_content,
+    comment.comment_stars,
+    comment.comment_time,
+    comment.like_num
     from comment
     join course on course.course_id = comment.course_id
     join teacher on teacher.teacher_id = course.teacher_id
     where course.course_id = #{courseId, jdbcType=VARCHAR}
+  </select>
+  <select id="getCommentStarsByTeacherId" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select
+    comment.comment_stars
+    from comment
+    join course on course.course_id = comment.course_id
+    join teacher on teacher.teacher_id = course.teacher_id
+    where teacher.teacher_id = #{teacherId, jdbcType=VARCHAR}
   </select>
 </mapper>

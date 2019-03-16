@@ -97,4 +97,7 @@ public interface CommentMapper {
     List<Comment> getCommentInfoByCourseId(String courseId);
 
     List<Comment> getCommentInfoByTeacherId(String teacherId);
+
+    // TODO 根据老师id返回所有评论的星数
+    List<Integer> getCommentStarsByTeacherId(String teacherId);
 }

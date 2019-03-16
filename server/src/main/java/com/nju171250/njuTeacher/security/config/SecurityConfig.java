@@ -1,5 +1,6 @@
-package com.nju171250.njuTeacher.security;
+package com.nju171250.njuTeacher.security.config;
 
+import com.nju171250.njuTeacher.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/thumbsUp","/getUserDoFavouriteSituation","/register","/search","/getCommentInfo", "/getTeacherInfo","/makeComment","/swagger-ui.html").permitAll()
+                .antMatchers("/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
             .csrf().disable()  //CRSF禁用，因为不使用session
@@ -69,6 +70,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Autowired
+    JwtUserDetailService userDetailsService;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider()).authenticationProvider(jwtAuthenticationProvider());
@@ -81,19 +85,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean("jwtAuthenticationProvider")
     protected AuthenticationProvider jwtAuthenticationProvider() {
-        return new JwtAuthenticationProvider(new JwtUserDetailService());
+        return new JwtAuthenticationProvider(userDetailsService);
     }
 
     @Bean("daoAuthenticationProvider")
     protected AuthenticationProvider daoAuthenticationProvider() throws Exception{
         //这里会默认使用BCryptPasswordEncoder比对加密后的密码，注意要跟createUser时保持一致
         DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
-        daoProvider.setUserDetailsService(userDetailsService());
+        daoProvider.setUserDetailsService(userDetailsService);
         return daoProvider;
     }
 
     public UserDetailsService userDetailsService(){
-        return new JwtUserDetailService();
+        return this.userDetailsService;
     }
 //    @Autowired
 //    private CustomAuthenticationProvider authProvider;

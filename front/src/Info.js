@@ -4,6 +4,8 @@ import Comments from "./Comments"
 import {Link} from "react-router-dom"
 import "./Config"
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
+import { Tabs, Collapse } from 'element-react';
+import 'element-theme-default';
 class Info extends Component {
     constructor(props){
         super(props)
@@ -59,6 +61,17 @@ class Info extends Component {
                <p className="participantNum">{this.state.commentNum}个人参与评分</p>
             </div>
           </div>
+          <Tabs activeName="2" onTabClick={ (tab) => console.log(tab.props.name) }>
+            <Tabs.Pane label="最新评论" name="1">最新评论</Tabs.Pane>
+            <Tabs.Pane label="所有课程" name="2">
+              <Collapse value={this.state.data.activeName}>
+                {this.state.data.courses.map(p=>
+                  <Collapse.Item title={p.courseName} name={p.courseName}>
+                  </Collapse.Item>
+                )} 
+              </Collapse>
+            </Tabs.Pane>
+          </Tabs>
           <div className="courses">
             <p className="title">所教课程</p>
             {this.state.data.courses.map(p=>
