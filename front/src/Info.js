@@ -6,13 +6,10 @@ import "./Config"
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
 import { Tabs, Collapse } from 'element-react';
 import 'element-theme-default';
-<<<<<<< HEAD
 import Axios from 'axios';
-=======
 
 import Cookies from 'universal-cookie';
 const cookies = new Cookies();
->>>>>>> a926119680fe68f246870f9a1102111e6ac0d803
 class Info extends Component {
     constructor(props){
         super(props)
