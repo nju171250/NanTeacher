@@ -70,13 +70,13 @@ class MarkScore extends Component {
     }
     handleTextAreaChange(e){
       this.setState({
-        text:e.target.value
+        text:e
       })
       
     }
-    handleRadioChange(e){
+    handleSelectChange(e){
       this.setState({
-        courseId: e.target.value
+        courseId: e
       })
       
     }
@@ -95,7 +95,7 @@ class MarkScore extends Component {
         <div class="commentCourse">
           <div class="selectCourse">
             <span style={css}>评价课程</span>
-            <Select value={this.state.value} placeholder="请选择">
+            <Select value={this.state.value} placeholder="请选择" onChange={this.handleSelectChange.bind(this)}>
               {
                 this.state.data.courses.map(el => {
                   return <Select.Option key={el.courseId} label={el.courseName} value={el.courseId}  />
@@ -119,16 +119,15 @@ class MarkScore extends Component {
           style={InputStyle}
           type="textarea"
           autosize={{ minRows: 3, maxRows: 4}}
-          placeholder="留下你的上课体验吧~~"
+          placeholder="留下你的上课体验吧~~" 
+          onChange={this.handleTextAreaChange.bind(this)}
         />
-        <div class="buttonDiv">
-          <Button plain={true} type="success">成功按钮</Button>
-        </div>
-        <textarea onChange={this.handleTextAreaChange.bind(this) } placeholder="留下你的上课体验~"></textarea>
+        
+        
         
         <div>
         <Link to={"/info/"+this.props.props.match.params.teacherId}>
-        <button onClick={this.handleButtonClick.bind(this)}>提交</button>
+        <Button plain={true} type="success" onClick={this.handleButtonClick.bind(this)}>提交</Button>
         </Link> 
         </div>
         

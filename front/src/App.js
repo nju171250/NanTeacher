@@ -11,6 +11,7 @@ import { BallScaleRippleMultiple } from 'react-pretty-loading';
 import tan90 from './tan90.gif';
 
 import Cookies from 'universal-cookie';
+
 const cookies = new Cookies();
 class App extends Component {
   constructor(props){
