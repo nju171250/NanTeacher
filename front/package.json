@@ -7,6 +7,7 @@
     "axios": "^0.18.0",
     "element-react": "^1.4.33",
     "element-theme-default": "^1.4.13",
+    "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-hot-loader": "^4.8.0",
