@@ -109,7 +109,7 @@ class MarkScore extends Component {
         <div class="commentCourse">
           <div class="selectTeacher">
             <span style={css}>评价老师</span>
-            <div>王浩然</div>
+            <div>黄书剑</div>
           </div>
           <div class="selectCourse">
             <span style={css}>评价课程</span>
