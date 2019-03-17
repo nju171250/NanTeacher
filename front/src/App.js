@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-import {Route,Switch,Router} from 'react-router-dom'
+import {Route,Switch,Router,Link} from 'react-router-dom'
 import SearchList from './SearchList';
 import Info from './Info'
 import SearchBox from './SearchBox'
 import MarkScore from './MarkScore'
+import Home from './Home'
 import "./Config"
 import Axios from 'axios';
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
@@ -131,11 +132,19 @@ class App extends Component {
         <MarkScore token={this.state.token} props={props}/>
       )
     }
+    
+      
+    
     return (
       
       <div className="App">
         <SearchBox onTextChange={this.handleTextChange} searchText={this.state.searchText}/>
         <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
+        {this.state.searchText===""?<Route exact path="/" component={Home}/>
+         
+         :<div/>}
+        
+       
         {
           (this.state.searchText!=""&&this.state.searchText!=" "&&this.state.data.length===0&&this.state.isFetching===false)?<div className="notFound"><p>小南找不到了</p><img src={tan90}/></div>:<p></p>
         }
