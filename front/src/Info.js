@@ -111,6 +111,14 @@ class Info extends Component {
         console.log(this_.state.comments)
       })
     }
+    handleLikeNum(num){
+      if(num>999){
+        return (num/1000.0).toFixed(1)+"k"
+      }
+      else{
+        return num
+      }
+    }
     acomment(comment, p){
       if(comment.courseId === p.courseId){
         return(
@@ -122,7 +130,7 @@ class Info extends Component {
           <div className="right">
             <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
               <i className="el-icon-caret-top"/>
-              <p className="likeNum">赞同{comment.likeNum}</p>
+              <p className="likeNum">赞同{this.handleLikeNum(comment.likeNum)}</p>
             </div>
             <div className="dislike" onClick={this.thumbsUp.bind(this,comment.commentId,0)} style={this.getLikeCssStyle(comment.favouriteSituation,false)}>
             <i className="el-icon-caret-bottom"/>
@@ -148,7 +156,7 @@ class Info extends Component {
               <div className="right">
                    <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
                      <i className="el-icon-caret-top"/>
-                     <span className="likeNum"> {this.getLikeText(comment.favouriteSituation)}{comment.likeNum}</span>
+                     <span className="likeNum"> {this.getLikeText(comment.favouriteSituation)}{this.handleLikeNum(comment.likeNum)}</span>
                      
                     </div>
                    <div className="dislike" onClick={this.thumbsUp.bind(this,comment.commentId,0)} style={this.getLikeCssStyle(comment.favouriteSituation,false)}>
@@ -228,7 +236,9 @@ class Info extends Component {
       // console.log(this.state)
      
     return (
+      
       <div className="Info">
+         <div className="main">
           <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
           <div className="basicInfo">
             <div className="left">
@@ -242,7 +252,7 @@ class Info extends Component {
             </div>
           </div>
           <Tabs activeName="1" onTabClick={ (tab) => console.log(tab.props.name) }>
-            <Tabs.Pane label="最新评论" name="1">
+            <Tabs.Pane label="热门评论" name="1">
               {this.newestComment()}
               {/* {this.state.comments.map(comment=>
                   <div class="newcommentDetail">
@@ -277,6 +287,8 @@ class Info extends Component {
               )} 
           </div> */}
           {/* <Comments token={window.token} teacherId={this.props.props.match.params.teacherId} onCommentsInit={this.handleCommentsInit.bind(this)}/> */}
+          </div>
+          
           <Link to={"/markScore/"+this.props.props.match.params.teacherId}>
           <div className="markScore">
             <i className="el-icon-edit"></i>

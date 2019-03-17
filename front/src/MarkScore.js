@@ -4,9 +4,9 @@ import "./Config";
 import 'element-theme-default';
 
 import './MarkScore.css'
-import {Link} from 'react-router-dom'
+import {Link,withRouter} from 'react-router-dom'
 import Axios from 'axios';
-import {Rate, Select, Input, Button} from 'element-react'
+import {Rate, Select, Input, Button,Message} from 'element-react'
 import { BallScaleRippleMultiple } from 'react-pretty-loading';
 
 import Cookies from 'universal-cookie';
@@ -18,7 +18,9 @@ class MarkScore extends Component {
           rating:3,
         data:{
           courses:[]
-        }
+        },
+        text:"",
+        courseId:""
         }
     }
     componentDidMount(){
@@ -48,6 +50,14 @@ class MarkScore extends Component {
         console.log(this.state)
     }
     handleButtonClick(){
+      if(this.state.courseId===""){
+        Message("请选择所评价课程~")
+         return;
+      }
+      if(this.state.text===""){
+        Message("请输入评价内容~")
+        return;
+      }
         var data = {
           "teacherId": this.props.props.match.params.teacherId,
           "content": this.state.text,
@@ -67,6 +77,10 @@ class MarkScore extends Component {
         .catch(function (error) {
           console.log(error);
         }); 
+        this.props.history.push("/info/"+this.props.props.match.params.teacherId);
+        setTimeout(() => {
+          window.location.reload();
+      }, 0);
     }
     handleTextAreaChange(e){
       this.setState({
@@ -126,9 +140,9 @@ class MarkScore extends Component {
         
         
         <div>
-        <Link to={"/info/"+this.props.props.match.params.teacherId}>
+        
         <Button plain={true} type="success" onClick={this.handleButtonClick.bind(this)}>提交</Button>
-        </Link> 
+        
         </div>
         
     </div>
@@ -137,4 +151,4 @@ class MarkScore extends Component {
   }
 }
 
-export default MarkScore;
+export default withRouter(MarkScore);

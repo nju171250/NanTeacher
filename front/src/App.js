@@ -27,6 +27,7 @@ class App extends Component {
     
   }
   componentDidMount(){
+    
     var this_=this
     var token="";
     var data={

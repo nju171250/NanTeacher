@@ -43,6 +43,9 @@
 .Info .courses .title{
     font-size: 13px;
 }
+.Info .main{
+    padding-bottom: 45px;
+}
 .Info .markScore{
     background-color: rgba(121, 187, 255,1);
     position: fixed;
@@ -103,7 +106,7 @@
     justify-content: center;
     border-radius: 4px;
     height: 28px;
-    width: 70px;
+    width: 76px;
     background: rgb(244, 244, 245);
     margin-right: 8px;
 }
