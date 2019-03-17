@@ -19,6 +19,7 @@ class Home extends Component {
         <Link to="/info/475"><p className="hotTeacher">陶先平</p></Link> 
         <Link to="/info/555"><p className="hotTeacher">王浩然</p></Link> 
         <Link to="/info/488"><p className="hotTeacher">黄书剑</p></Link> 
+        <p className="foot"> ©2019 南老师 powered by NJU MAT</p>
        </div>
     );
   }
