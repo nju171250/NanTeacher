@@ -59,6 +59,8 @@
 }
 .commentTime{
     margin-bottom: 6px;
+    display: flex;
+    flex-direction: row;
 }
 .commentDetail{
     border-bottom-style: solid;
@@ -78,7 +80,7 @@
     margin-bottom: 16px;
     /* padding: 0 20px; */
     margin: 0 auto;
-    width: 90%;
+    width: 94%;
     padding-bottom: 4px;
     margin-bottom: 12px;
     font-size: 13px;
@@ -118,4 +120,7 @@
     height: 28px;
     width: 30px;;
     background: rgb(233, 233, 235);
+}
+.extra{
+    width: 100%;;
 }

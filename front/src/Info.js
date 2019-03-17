@@ -112,21 +112,23 @@ class Info extends Component {
       })
     }
     acomment(comment, p){
+      var width = {"width":"100%"}
       if(comment.courseId === p.courseId){
         return(
-        <div class="newcommentDetail">
-          <div>
+        <div class="newcommentDetail" style={width}>
+          <div class="extra">
           <div class="commentContent">{comment.commentContent}</div>
-          <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
+          <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}
+            <div className="right">
+              <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
+                <i className="el-icon-caret-top"/>
+                <p className="likeNum">赞同{comment.likeNum}</p>
+              </div>
+              <div className="dislike" onClick={this.thumbsUp.bind(this,comment.commentId,0)} style={this.getLikeCssStyle(comment.favouriteSituation,false)}>
+              <i className="el-icon-caret-bottom"/>
+              </div>
           </div>
-          <div className="right">
-            <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
-              <i className="el-icon-caret-top"/>
-              <p className="likeNum">赞同{comment.likeNum}</p>
-            </div>
-            <div className="dislike" onClick={this.thumbsUp.bind(this,comment.commentId,0)} style={this.getLikeCssStyle(comment.favouriteSituation,false)}>
-            <i className="el-icon-caret-bottom"/>
-            </div>
+          </div>          
           </div>
         </div>
         )
@@ -137,11 +139,10 @@ class Info extends Component {
         return(
           this.state.comments.map(comment=>
             <div class="newcommentDetail">
-              <div>
+              <div class="extra">
                 <div class="commentContent">{comment.commentContent}</div>
-                <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}</div>
-              </div>
-              <div className="right">
+                <div class="commentTime">发布于{comment.commentTime===null||comment.commentTime.length<10?comment.commentTime:comment.commentTime.substring(0,10)}
+                <div className="right">
                    <div className="like" onClick={this.thumbsUp.bind(this,comment.commentId,1)} style={this.getLikeCssStyle(comment.favouriteSituation,true)}>
                      <i className="el-icon-caret-top"/>
                      <span className="likeNum">赞同{comment.likeNum}</span>
@@ -150,6 +151,8 @@ class Info extends Component {
                     <i className="el-icon-caret-bottom"/>
                    </div>
               </div>
+                </div>
+              </div>              
             </div>
         )
       )

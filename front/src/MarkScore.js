@@ -41,9 +41,9 @@ class MarkScore extends Component {
         )
         .catch(e => console.log(e));
     }
-    handleRate(rating){
+    handleRate(ratin){
         this.setState({
-            rating:rating
+            rating:ratin
         })
         console.log(this.state)
     }
@@ -121,6 +121,7 @@ class MarkScore extends Component {
           autosize={{ minRows: 3, maxRows: 4}}
           placeholder="留下你的上课体验吧~~" 
           onChange={this.handleTextAreaChange.bind(this)}
+          onSelect={null}
         />
         
         
