@@ -18,11 +18,9 @@ class SearchBox extends Component {
       
     return (
       <div className="SearchBox">
-        <Input icon="search" onChange={this.handleChange} placeholder="南老师" value={this.props.searchText}></Input>
+        <Input icon="search" onChange={this.handleChange} placeholder="南老师搜索" value={this.props.searchText}></Input>
         {/* <input class="el-input" onChange={this.handleChange} placeholder="  南老师" value={this.props.searchText}></input> */}
       </div>
-      
-      
     );
   }
 }

@@ -17,7 +17,10 @@ class MarkScore extends Component {
         this.state={
           rating:3,
         data:{
-          courses:[]
+          courses:[],
+          teacher:{
+            teacherName:""
+          }
         },
         text:"",
         courseId:""
@@ -109,7 +112,7 @@ class MarkScore extends Component {
         <div class="commentCourse">
           <div class="selectTeacher">
             <span style={css}>评价老师</span>
-            <div>黄书剑</div>
+            <div>{this.state.data.teacher.teacherName}</div>
           </div>
           <div class="selectCourse">
             <span style={css}>评价课程</span>
