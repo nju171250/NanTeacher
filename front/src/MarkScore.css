@@ -27,6 +27,12 @@
     font-family: "楷体";
     font-size: 18px;
 }
+.selectTeacher{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
 .selectCourse{
     display: flex;
     align-items: center;

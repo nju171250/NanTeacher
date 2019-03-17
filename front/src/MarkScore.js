@@ -107,6 +107,10 @@ class MarkScore extends Component {
       <div className="markScore">
         <BallScaleRippleMultiple loading={this.state.isFetching } color="#6A005F" center/>
         <div class="commentCourse">
+          <div class="selectTeacher">
+            <span style={css}>评价老师</span>
+            <div>王浩然</div>
+          </div>
           <div class="selectCourse">
             <span style={css}>评价课程</span>
             <Select value={this.state.value} placeholder="请选择" onChange={this.handleSelectChange.bind(this)}>
