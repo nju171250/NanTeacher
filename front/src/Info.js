@@ -98,16 +98,20 @@ class Info extends Component {
     }
     getComments(){
       var this_ = this
+      this.setState({
+        isFetching:true
+      })
       var url = global.constants.baseUrl + "/getCommentInfo?teacherId=" + this.props.props.match.params.teacherId
       Axios.get(url,{
         headers:{
           Authorization:cookies.get('token')
         }
       }).then(response =>{
-        this_.setState({comments: response.data})
+        this_.setState({comments: response.data,isFetching:false})
         this_.fetchFavouriteSituation(this_.state.comments.map(p=>
           p.commentId
         ));
+
         console.log(this_.state.comments)
       })
     }
@@ -169,7 +173,7 @@ class Info extends Component {
             </div>
         )
       )
-      else 
+      else if(this.state.isFetching===false)
         return(
           <div>
             <div className="notFound"><p>小南找不到该老师的评价</p><img src={tan90}/></div>
