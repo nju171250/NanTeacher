@@ -1,0 +1,19 @@
+.home{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.home .title{
+  margin-top: 10px;
+  font-size: 24px;
+}
+.home .hotTeacher{
+  margin-top: 20px;
+  font-size: 16px;
+  height: 10px;
+  color: #58B7FF;
+}
+p:hover, p:visited, p:link, p:active {
+  text-decoration: none;
+}
