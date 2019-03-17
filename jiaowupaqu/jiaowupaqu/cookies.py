@@ -17,7 +17,7 @@ def login():
     jw = requests.session()  # 开始登录教务
 
     data = {'userName': '171250655',
-            'password': 'Zy511303',
+            'password': '*******',
             'returnUrl': 'null',
             'ValidateCode': codeNum}
 
